@@ -1,0 +1,20 @@
+{
+  "index_version": "3.1.0",
+  "scope": "project-workspace",
+  "last_reviewed": "2026-07-13",
+  "entries": [
+    {"path": "config/", "type": "directory", "layer": "configuration", "purpose": "User-confirmed profile and strategy; daily automations read but do not write.", "contains_private_data": true, "mutable": true},
+    {"path": "data/operations/", "type": "directory", "layer": "operations-domain", "purpose": "Raw account inputs and canonical performance snapshots.", "owner_workflow": "auto-ops-diagnosis", "contains_private_data": true, "mutable": true},
+    {"path": "data/topic-research/", "type": "directory", "layer": "topic-decision-domain", "purpose": "Content-strategy health assessment, topic search scope, external opportunity evidence and optional pain catalog.", "owner_workflow": "daily-ops-loop", "contains_private_data": true, "mutable": true},
+    {"path": "data/benchmarks/", "type": "directory", "layer": "benchmark-domain", "purpose": "Supply-side competitor and reference content, kept separate from demand.", "owner_workflow": "reference-mining", "contains_private_data": false, "mutable": true},
+    {"path": "data/feedback/", "type": "directory", "layer": "feedback-domain", "purpose": "Published records, post metrics, learning, and proposed strategy deltas.", "owner_workflow": "feedback-learning", "contains_private_data": true, "mutable": true},
+    {"path": "work/topics/conservative/", "type": "directory", "layer": "decision-work", "purpose": "Stable-strategy candidate lane; isolated 60% supply.", "owner_workflow": "topic-candidates-conservative", "contains_private_data": true, "mutable": true},
+    {"path": "work/topics/experimental/", "type": "directory", "layer": "decision-work", "purpose": "Fresh-signal experiment lane; isolated 40% supply with expiry and hypotheses.", "owner_workflow": "topic-candidates-experimental", "contains_private_data": true, "mutable": true},
+    {"path": "work/topics/selections/", "type": "directory", "layer": "decision-work", "purpose": "Explicit mixed selections; daily three-topic mix is two conservative plus one experimental.", "owner_workflow": "topic-selection-mix", "contains_private_data": true, "mutable": true},
+    {"path": "work/plans/", "type": "directory", "layer": "decision-work", "purpose": "Execution plans derived from selected topics, operations constraints and benchmark patterns.", "owner_workflow": "script-planning", "contains_private_data": true, "mutable": true},
+    {"path": "presentation/", "type": "directory", "layer": "presentation", "purpose": "Dashboard read model, canonical HTML, and required assets; never a data source.", "owner_workflow": "daily-ops-loop", "contains_private_data": true, "mutable": true},
+    {"path": "runs/", "type": "directory", "layer": "audit", "purpose": "Immutable run manifests, inputs, outputs, logs, closures, and invalidations.", "contains_private_data": true, "mutable": true},
+    {"path": "archive/", "type": "directory", "layer": "archive", "purpose": "Legacy pages, old skills, migrations, and temporary downloads excluded from active workflows.", "contains_private_data": true, "mutable": false},
+    {"path": "data.contract.json", "type": "file", "layer": "semantic-contract", "purpose": "Authoritative domain, state, lineage, precedence, and workflow-boundary contract.", "owner_workflow": "workspace-governance", "contains_private_data": false, "mutable": true}
+  ]
+}

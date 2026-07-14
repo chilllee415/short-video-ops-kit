@@ -1,0 +1,14 @@
+{
+  "feedback_id": "",
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-01-07"
+  },
+  "validated_pain_ids": [],
+  "weakened_pain_ids": [],
+  "effective_hooks": [],
+  "ineffective_hooks": [],
+  "effective_ctas": [],
+  "invalid_traffic_patterns": [],
+  "notes": []
+}

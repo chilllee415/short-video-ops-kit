@@ -1,0 +1,24 @@
+{
+  "plan_id": "uninitialized",
+  "plan_date": "1970-01-01",
+  "strategy_id": "unconfirmed",
+  "strategy_assessment_id": "unassessed",
+  "status": "blocked",
+  "source_dates": {"account": "", "topic": "", "reference": ""},
+  "research_summary": {
+    "account_signal": "Account data has not been collected.",
+    "topic_signal": "Topic opportunity signals have not been collected.",
+    "reference_signal": "Benchmark research must wait for candidate topics.",
+    "missing_or_blocked": ["Initialize profile, confirm strategy, and collect topic evidence."]
+  },
+  "command": {
+    "titlePrefix": "Blocked",
+    "highlight": "Workspace not initialized",
+    "copy": "No executable plan.",
+    "keywords": [],
+    "checks": [],
+    "gates": [{"label": "BLOCK", "text": "Do not render or publish without valid topic evidence."}]
+  },
+  "schedule": [],
+  "plans": []
+}

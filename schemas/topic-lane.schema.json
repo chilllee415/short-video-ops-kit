@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Topic Candidate Lane",
+  "type": "object",
+  "required": ["candidate_set_id", "lane", "status", "strategy_id", "strategy_assessment_id", "generated_at", "topics"],
+  "properties": {
+    "candidate_set_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string", "enum": ["conservative", "experimental"]},
+    "status": {"type": "string", "enum": ["ready", "blocked", "invalidated"]},
+    "strategy_id": {"type": "string", "minLength": 1},
+    "strategy_assessment_id": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "minLength": 1},
+    "quota_percent": {"type": "integer", "enum": [40, 60]},
+    "expires_at": {"type": "string"},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["topic_id", "lane", "lane_rank", "strategy_id", "strategy_assessment_id", "account_fit", "search_scope_ids", "signal_ids", "validation_hypothesis", "title", "visible_result", "cta", "score"],
+        "properties": {
+          "topic_id": {"type": "string", "minLength": 1},
+          "lane": {"type": "string", "enum": ["conservative", "experimental"]},
+          "lane_rank": {"type": "integer", "minimum": 1},
+          "strategy_id": {"type": "string", "minLength": 1},
+          "strategy_assessment_id": {"type": "string", "minLength": 1},
+          "account_fit": {
+            "type": "object",
+            "required": ["fit_status", "persona_match", "problem_domain_match", "first_person_proof", "content_role", "fit_reason"],
+            "properties": {
+              "fit_status": {"type": "string", "enum": ["core", "adjacent_experiment", "reject"]},
+              "persona_match": {"type": "boolean"},
+              "problem_domain_match": {"type": "boolean"},
+              "first_person_proof": {"type": "boolean"},
+              "content_role": {"type": "string", "enum": ["automation_result", "developer_build", "tool_bridge", "process_review", "meta_operations", "business_diagnosis"]},
+              "fit_reason": {"type": "string", "minLength": 1},
+              "proof_asset": {"type": "string"}
+            }
+          },
+          "search_scope_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "signal_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "reference_ids": {"type": "array", "items": {"type": "string"}},
+          "validation_hypothesis": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string"},
+          "title": {"type": "string", "minLength": 1},
+          "target_role": {"type": "string"},
+          "scene": {"type": "string"},
+          "hook": {"type": "string"},
+          "visible_result": {"type": "string", "minLength": 1},
+          "cta": {"type": "string"},
+          "score": {"type": "object", "additionalProperties": {"type": "number"}}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"lane": {"const": "conservative"}}, "required": ["lane"]},
+      "then": {
+        "properties": {
+          "quota_percent": {"const": 60},
+          "topics": {
+            "items": {
+              "properties": {
+                "lane": {"const": "conservative"},
+                "account_fit": {
+                  "properties": {
+                    "fit_status": {"const": "core"},
+                    "persona_match": {"const": true},
+                    "problem_domain_match": {"const": true},
+                    "first_person_proof": {"const": true}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"lane": {"const": "experimental"}}, "required": ["lane"]},
+      "then": {
+        "properties": {
+          "quota_percent": {"const": 40},
+          "topics": {
+            "items": {
+              "required": ["expires_at"],
+              "properties": {
+                "lane": {"const": "experimental"},
+                "account_fit": {
+                  "properties": {
+                    "persona_match": {"const": true},
+                    "first_person_proof": {"const": true}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "blocked"}}, "required": ["status"]},
+      "then": {"properties": {"topics": {"maxItems": 0}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "ready"}}, "required": ["status"]},
+      "then": {"properties": {"topics": {"minItems": 1}}}
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Video Topic Discovery"
+  short_description: "依据账号策略和机会信号生成双候选池并选择今日选题组合"
+  default_prompt: "Use $short-video-topic-discovery to assess the direction and build today’s 6:4 topic pools."

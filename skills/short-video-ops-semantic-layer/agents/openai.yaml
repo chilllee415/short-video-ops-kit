@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Video Ops Semantic Layer"
+  short_description: "校验短视频运营工作区的数据层级证据角色与完整血缘关系"
+  default_prompt: "Use $short-video-ops-semantic-layer to audit this workspace’s data layers and lineage."

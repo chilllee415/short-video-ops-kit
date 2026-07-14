@@ -1,0 +1,60 @@
+{
+  "run_date": "2026-01-07",
+  "generated_at": "2026-01-07T10:30:00+08:00",
+  "research_brief_ref": "runs/2026-01-07-daily-ops-loop/outputs/topic-discovery-brief.json",
+  "strategy_assessment_ref": "data/topic-research/current/strategy-assessment.json",
+  "topic_search_scope": {
+    "scope_ids": ["scope-example-main"],
+    "positioning": "Use visible AI workflows to solve repeated work.",
+    "industry": "AI workflow education",
+    "target_audiences": ["knowledge workers"],
+    "main_tracks": ["repeated work automation"],
+    "stage_goal": "Validate result-first demonstrations.",
+    "strategy_decision": "run_validation_experiment",
+    "search_mode": "validation",
+    "future_directions": [],
+    "exclusions": ["generic tool news"],
+    "query_families": ["audience_pain", "market_task", "content_gap"]
+  },
+  "coverage_status": "complete",
+  "checked_sources": [
+    {
+      "platform": "creator-comments",
+      "source_class": "first_party",
+      "status": "checked",
+      "queries": [],
+      "notes": "Example first-party evidence."
+    },
+    {
+      "platform": "youtube",
+      "source_class": "discovery",
+      "status": "checked",
+      "queries": ["AI workflow business result"]
+    },
+    {
+      "platform": "bilibili",
+      "source_class": "discovery",
+      "status": "checked",
+      "queries": ["AI 工作流 真实场景"]
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "DS-example-001",
+      "platform": "creator-comments",
+      "source_class": "first_party",
+      "evidence_id": "example-comment-001",
+      "observed_at": "2026-01-07",
+      "audience_role": "small business operator",
+      "business_scene": "turning feedback into a content plan",
+      "topic_opportunity": "Demonstrate how scattered feedback becomes a ranked content plan.",
+      "demand_statement": "Users want a repeatable way to turn scattered feedback into executable topics.",
+      "evidence_level": "strong",
+      "evidence_role": "audience_pain",
+      "mapped_pain_id": "P-example-001",
+      "search_scope_ids": ["scope-example-main"],
+      "momentum": "stable"
+    }
+  ],
+  "blockers": []
+}

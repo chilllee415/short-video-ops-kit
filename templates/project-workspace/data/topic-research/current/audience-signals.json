@@ -1,0 +1,10 @@
+{
+  "signals": [],
+  "signal_types": [
+    "comment",
+    "private_message",
+    "consultation",
+    "customer_interview",
+    "save_or_share_reason"
+  ]
+}

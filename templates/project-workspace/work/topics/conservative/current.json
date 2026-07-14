@@ -1,0 +1,11 @@
+{
+  "candidate_set_id": "conservative-not-generated",
+  "lane": "conservative",
+  "status": "blocked",
+  "strategy_id": "not-confirmed",
+  "strategy_assessment_id": "not-assessed",
+  "generated_at": "1970-01-01T00:00:00Z",
+  "quota_percent": 60,
+  "blockers": ["Confirm account positioning and strategy before generating candidates."],
+  "topics": []
+}

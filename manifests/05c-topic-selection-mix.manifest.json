@@ -1,0 +1,11 @@
+{
+  "workflow_id": "topic-selection-mix",
+  "purpose": "Join independently ranked lanes without a global scoreboard and select two conservative plus one experimental topic for the daily plan.",
+  "reads": ["project.manifest.json", "config/policies/topic-selection.policy.json", "work/topics/conservative/current.json", "work/topics/experimental/current.json"],
+  "writes": ["work/topics/selections/daily.json", "runs/<run-id>/outputs/topic-selection-mix.json"],
+  "single_writer_for": "work/topics/selections/daily.json",
+  "hard_gate": "both lane files are ready, current and schema-valid; exactly 2 conservative and 1 experimental are selected; no rejected or expired topic",
+  "must_not_write": ["work/topics/conservative/", "work/topics/experimental/", "data/benchmarks/", "work/plans/", "presentation/", "config/strategy/"],
+  "output_schema": "schemas/topic-selection.schema.json",
+  "missing_data_behavior": "write_blocked_empty_selection"
+}

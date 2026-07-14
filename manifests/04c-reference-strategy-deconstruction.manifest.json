@@ -1,0 +1,44 @@
+{
+  "workflow_id": "reference-strategy-deconstruction",
+  "purpose": "Post-process extracted reference transcripts into reusable short-video strategy patterns and current-draft rewrite guidance.",
+  "reads": [
+    "project.manifest.json",
+    "runs/<source-run-id>/outputs/reference-transcript-collection.json"
+  ],
+  "optional_reads": [
+    "runs/<source-run-id>/outputs/teaching-video-script-analysis.json",
+    "config/strategy/strategy-brief.json",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "reference-transcript-download",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "runs/<source-run-id>/outputs/reference-transcript-collection.json"
+      ],
+      "notes": "Strategy deconstruction requires downloaded body text/transcripts from a specific source run."
+    },
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Use strategy brief to judge transferability for the current account."
+    }
+  ],
+  "handoff_policy": "Read transcript collections and produce reusable patterns only; do not fetch media or update reference-bank directly.",
+  "writes": [
+    "runs/<run-id>/outputs/reference-strategy-deconstruction.json",
+    "runs/<run-id>/outputs/reference-strategy-deconstruction.md"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "work/topics/",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/reference-swipe.schema.json",
+  "missing_data_behavior": "emit_missing_transcript_report"
+}

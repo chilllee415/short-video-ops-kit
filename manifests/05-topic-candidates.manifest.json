@@ -1,0 +1,19 @@
+{
+  "workflow_id": "topic-candidates",
+  "purpose": "Coordinate physically isolated conservative and experimental topic generation, then invoke a separate 60/40 mix gate.",
+  "parallel_children": ["topic-candidates-conservative", "topic-candidates-experimental"],
+  "join_child": "topic-selection-mix",
+  "reads": [
+    "project.manifest.json",
+    "data.contract.json",
+    "config/policies/topic-discovery.policy.json",
+    "config/policies/topic-selection.policy.json",
+    "system/manifests/05a-topic-candidates-conservative.manifest.json",
+    "system/manifests/05b-topic-candidates-experimental.manifest.json",
+    "system/manifests/05c-topic-selection-mix.manifest.json"
+  ],
+  "writes": ["runs/<run-id>/outputs/topic-lane-coordination.json"],
+  "must_not_write": ["work/topics/conservative/current.json", "work/topics/experimental/current.json", "work/topics/selections/daily.json", "config/strategy/", "presentation/"],
+  "requires_user_confirmation": false,
+  "missing_data_behavior": "propagate_blocked_lane_status"
+}

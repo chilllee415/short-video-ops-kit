@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Video Copywriting"
+  short_description: "把已选题参考结构和运营约束转成可以直接拍摄的短视频口播稿"
+  default_prompt: "Use $short-video-copywriting to turn the selected topic into an evidence-backed shooting script."

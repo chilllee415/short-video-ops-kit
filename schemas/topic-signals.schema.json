@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Topic Signals",
+  "type": "object",
+  "required": [
+    "run_date",
+    "generated_at",
+    "research_brief_ref",
+    "strategy_assessment_ref",
+    "topic_search_scope",
+    "coverage_status",
+    "checked_sources",
+    "signals",
+    "blockers"
+  ],
+  "properties": {
+    "run_date": { "type": "string", "format": "date" },
+    "generated_at": { "type": "string" },
+    "research_brief_ref": { "type": "string", "minLength": 1 },
+    "strategy_assessment_ref": { "type": "string", "minLength": 1 },
+    "topic_search_scope": {
+      "type": "object",
+      "required": ["scope_ids", "positioning", "industry", "target_audiences", "main_tracks", "stage_goal", "strategy_decision", "search_mode", "exclusions", "query_families"],
+      "properties": {
+        "scope_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "positioning": { "type": "string", "minLength": 1 },
+        "industry": { "type": "string", "minLength": 1 },
+        "target_audiences": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "main_tracks": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "stage_goal": { "type": "string", "minLength": 1 },
+        "strategy_decision": { "type": "string", "enum": ["continue_current", "optimize_execution", "run_validation_experiment", "propose_strategy_adjustment"] },
+        "search_mode": { "type": "string", "enum": ["reinforce", "stronger_angle", "validation", "current_plus_adjacent_proposal"] },
+        "future_directions": { "type": "array", "items": { "type": "string" } },
+        "exclusions": { "type": "array", "items": { "type": "string" } },
+        "query_families": { "type": "array", "minItems": 3, "items": { "type": "string" } }
+      }
+    },
+    "coverage_status": {
+      "type": "string",
+      "enum": ["complete", "partial", "blocked"]
+    },
+    "checked_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["platform", "source_class", "status", "queries"],
+        "properties": {
+          "platform": { "type": "string", "minLength": 1 },
+          "source_class": {
+            "type": "string",
+            "enum": ["first_party", "discovery", "reference"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["checked", "unavailable", "not_relevant"]
+          },
+          "queries": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "signal_id",
+          "platform",
+          "source_class",
+          "observed_at",
+          "audience_role",
+          "business_scene",
+          "topic_opportunity",
+          "evidence_level",
+          "evidence_role"
+        ],
+        "properties": {
+          "signal_id": { "type": "string", "minLength": 1 },
+          "platform": { "type": "string", "minLength": 1 },
+          "source_class": {
+            "type": "string",
+            "enum": ["first_party", "discovery", "reference"]
+          },
+          "query": { "type": "string" },
+          "query_family": { "type": "string" },
+          "source_url": { "type": "string" },
+          "evidence_id": { "type": "string" },
+          "observed_at": { "type": "string" },
+          "audience_role": { "type": "string" },
+          "business_scene": { "type": "string" },
+          "topic_opportunity": { "type": "string" },
+          "demand_statement": { "type": "string" },
+          "evidence_level": {
+            "type": "string",
+            "enum": ["strong", "medium", "weak"]
+          },
+          "evidence_role": {
+            "type": "string",
+            "enum": [
+              "audience_pain",
+              "search_interest",
+              "hot_topic",
+              "industry_signal",
+              "market_task",
+              "content_gap",
+              "strategy_evidence",
+              "execution_constraint",
+              "operational_constraint",
+              "supply_content",
+              "user_need"
+            ]
+          },
+          "mapped_pain_id": { "type": "string" },
+          "search_scope_ids": { "type": "array", "items": { "type": "string" } },
+          "momentum": { "type": "string", "enum": ["rising", "stable", "declining", "unknown"] },
+          "metric": { "type": "object" }
+        },
+        "anyOf": [
+          { "required": ["source_url"] },
+          { "required": ["evidence_id"] }
+        ]
+      }
+    },
+    "blockers": { "type": "array", "items": { "type": "string" } }
+  }
+}

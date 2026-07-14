@@ -1,0 +1,45 @@
+{
+  "workflow_id": "copy-optimization-reference-match",
+  "purpose": "Analyze a raw draft, retrieve matching reusable references from user data, and produce a borrow map before rewriting copy.",
+  "reads": [
+    "project.manifest.json",
+    "config/profile/account.profile.json",
+    "config/strategy/strategy-brief.json",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "optional_reads": [
+    "runs/<recent-reference-run-id>/outputs/reference-strategy-deconstruction.json",
+    "work/topics/selections/daily.json"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "reference-bank-ingest",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "data/benchmarks/current/reference-bank.json"
+      ],
+      "notes": "High-quality copy optimization should use durable reference entries; if the bank is stale, run 04b/04c/04d first."
+    },
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Rewrite choices must match the confirmed account strategy and source policy."
+    }
+  ],
+  "handoff_policy": "Retrieve and explain reusable patterns only; do not save final scripts unless the user approves.",
+  "writes": [
+    "runs/<run-id>/outputs/copy-reference-match.json",
+    "runs/<run-id>/outputs/copy-reference-match.md"
+  ],
+  "must_not_write": [
+    "data/benchmarks/current/reference-bank.json",
+    "work/scripts/",
+    "config/strategy/strategy-brief.json"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/project-manifest.schema.json",
+  "missing_data_behavior": "emit_reference_gap_report"
+}

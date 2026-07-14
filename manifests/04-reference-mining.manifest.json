@@ -1,0 +1,47 @@
+{
+  "workflow_id": "reference-mining",
+  "purpose": "Collect and normalize competitor/reference structures that map to confirmed pains and strategy.",
+  "reads": [
+    "project.manifest.json",
+    "config/strategy/strategy-brief.json",
+    "data/topic-research/current/pain-bank.json",
+    "data/benchmarks/raw/competitors/",
+    "data/benchmarks/raw/references/"
+  ],
+  "optional_reads": [
+    "data/benchmarks/current/reference-bank.json",
+    "data/benchmarks/current/competitor-map.json"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Long-term references must map to the confirmed account strategy."
+    },
+    {
+      "workflow_id": "pain-bank-builder",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "data/topic-research/current/pain-bank.json"
+      ],
+      "notes": "Reference entries must map to pain_id before becoming formal topic evidence."
+    }
+  ],
+  "handoff_policy": "Normalize and maintain long-term reference assets only; do not perform one-off media download or transcript deconstruction.",
+  "writes": [
+    "data/benchmarks/current/reference-bank.json",
+    "data/benchmarks/current/competitor-map.json",
+    "runs/<run-id>/outputs/reference-bank.json",
+    "runs/<run-id>/outputs/reference-bank-additions.json"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "work/topics/"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/project-manifest.schema.json",
+  "missing_data_behavior": "emit_missing_data_report"
+}

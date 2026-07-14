@@ -1,0 +1,124 @@
+{
+  "contract_version": "3.3.0",
+  "workspace_id": "client-demo",
+  "timezone": "Asia/Shanghai",
+  "path_model": "domain-first",
+  "top_level": {
+    "config": "Human-confirmed identity, profile, strategy, and policy inputs.",
+    "data": "Observed or normalized business facts grouped by domain.",
+    "work": "Mutable decisions and production artifacts derived from data.",
+    "presentation": "Rendered read models for human review; never a source.",
+    "runs": "Immutable workflow audit records.",
+    "archive": "Legacy, migration, and temporary artifacts excluded from automation."
+  },
+  "state_rules": {
+    "raw": "Source-faithful captures. Append or supersede; do not silently reinterpret.",
+    "current": "Canonical normalized snapshot used by workflows. One explicit manifest pointer per entity.",
+    "work": "Rebuildable decisions or plans. May be ready, degraded, blocked, or invalidated.",
+    "presentation": "Rebuildable from current data and ready work only.",
+    "runs": "Write-once audit trail. Later corrections append invalidation metadata."
+  },
+  "source_precedence": [
+    "user-confirmed profile and strategy",
+    "first-party platform metrics and user interactions",
+    "current strategy-health assessment derived from first-party evidence",
+    "strategy-matched topic opportunity signals",
+    "historical content performance",
+    "external supply-side benchmark content",
+    "agent inference"
+  ],
+  "domains": [
+    {
+      "domain_id": "identity",
+      "level": "L0",
+      "config": ["config/profile/"],
+      "function": "Define account, audience, offer, value promise, and durable boundaries.",
+      "writes": "user-confirmed only",
+      "forbidden_inference": ["daily metrics", "single topics", "tools", "workflow status"]
+    },
+    {
+      "domain_id": "strategy",
+      "level": "L1",
+      "config": ["config/strategy/strategy-brief.json", "config/strategy/scoring-weights.json", "config/strategy/decision-log.md"],
+      "function": "Constrain topic search and ranking with confirmed direction and exclusions.",
+      "writes": "separate approval workflow only",
+      "boundary": "A topic, tool, experiment, account symptom, or workflow stage is not strategy."
+    },
+    {
+      "domain_id": "workflow_policies",
+      "level": "L1.5",
+      "config": ["config/policies/topic-discovery.policy.json", "config/policies/topic-selection.policy.json", "config/policies/benchmark-mining.policy.json"],
+      "function": "Configure how stable workflow nodes search, rank, and research references without changing account direction.",
+      "writes": "explicit policy revision only",
+      "boundary": "Policies may change workflow behavior but may not redefine the account audience, positioning, or confirmed direction."
+    },
+    {
+      "domain_id": "operations",
+      "level": "L2",
+      "raw": ["data/operations/raw/"],
+      "current": ["data/operations/current/account-snapshot.json", "data/operations/current/content-performance.json"],
+      "function": "Diagnose current performance and produce execution constraints.",
+      "allowed_effects": ["hook", "pacing", "duration", "proof timing", "CTA", "topic mix"],
+      "forbidden_effects": ["overwrite strategy", "turn a metric into account direction", "create a topic without a traceable opportunity signal"]
+    },
+    {
+      "domain_id": "topic_research",
+      "level": "L3",
+      "raw": ["data/topic-research/raw/", "data/operations/raw/audience-interactions/"],
+      "current": ["data/topic-research/current/strategy-assessment.json", "data/topic-research/current/topic-signals.json", "data/topic-research/current/audience-signals.json", "data/topic-research/current/market-signals.json", "data/topic-research/current/pain-bank.json"],
+      "function": "Assess content-strategy health from first-party performance without overwriting confirmed strategy, then build a strategy-bounded topic search space and record attributable topic opportunities.",
+      "valid_topic_roles": ["audience_pain", "search_interest", "hot_topic", "industry_signal", "market_task", "content_gap"],
+      "context_only_roles": ["strategy_evidence", "execution_constraint", "operational_constraint", "supply_content"],
+      "boundary": "Assessment may continue, optimize execution, run an experiment, or propose a content-strategy adjustment; it may never overwrite positioning or confirmed strategy."
+    },
+    {
+      "domain_id": "benchmarks",
+      "level": "L4",
+      "raw": ["data/benchmarks/raw/"],
+      "current": ["data/benchmarks/current/competitor-map.json", "data/benchmarks/current/reference-bank.json"],
+      "function": "After candidate topics exist, supply hook, proof, structure, pacing, and CTA patterns.",
+      "boundary": "Supply-side popularity may validate attention or packaging, but cannot change account strategy by itself."
+    },
+    {
+      "domain_id": "topics",
+      "level": "L5",
+      "work": ["work/topics/conservative/current.json", "work/topics/experimental/current.json", "work/topics/selections/daily.json"],
+      "function": "Build physically isolated conservative and experimental topic lanes, rank inside each lane, then mix them at a separate 60/40 selection gate.",
+      "required_lineage": "topic_id -> lane -> strategy_id -> strategy_assessment_id -> account_fit -> search_scope_ids -> signal_ids; pain_id is optional",
+      "boundary": "Each lane and the mixed selection have one writer. Experimental topics cannot overwrite or auto-promote into the conservative lane."
+    },
+    {
+      "domain_id": "plans",
+      "level": "L6",
+      "work": ["work/plans/daily.json", "work/plans/publishing.json", "work/plans/recording/", "work/scripts/"],
+      "function": "Apply operations constraints and benchmark patterns to validated topics.",
+      "boundary": "A blocked plan contains no executable topics and cannot render or publish."
+    },
+    {
+      "domain_id": "feedback",
+      "level": "L7",
+      "data": ["data/feedback/"],
+      "function": "Record real publishing and performance outcomes for the next operations cycle.",
+      "boundary": "Feedback may propose strategy changes but cannot overwrite confirmed strategy."
+    },
+    {
+      "domain_id": "presentation",
+      "level": "L8",
+      "presentation": ["presentation/ops-dashboard.json", "presentation/internal-pages/运营大盘.html"],
+      "function": "Render upstream facts without inventing conclusions, scores, or freshness.",
+      "boundary": "Presentation is never read as business evidence."
+    }
+  ],
+  "workflow_order": [
+    "observe_operations",
+    "load_strategy_boundary",
+    "assess_strategy_health",
+    "normalize_topic_opportunities",
+    "build_candidate_lanes",
+    "mix_candidate_selection",
+    "research_topic_benchmarks",
+    "build_execution_plan",
+    "render_and_verify",
+    "ingest_publish_feedback"
+  ]
+}

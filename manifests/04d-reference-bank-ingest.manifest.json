@@ -1,0 +1,45 @@
+{
+  "workflow_id": "reference-bank-ingest",
+  "purpose": "Promote useful 04c reference strategy deconstructions into the durable reference bank for future topic and copywriting workflows.",
+  "reads": [
+    "project.manifest.json",
+    "runs/<deconstruction-run-id>/outputs/reference-strategy-deconstruction.json",
+    "config/strategy/strategy-brief.json",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "optional_reads": [
+    "data/topic-research/current/pain-bank.json"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "reference-strategy-deconstruction",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "runs/<deconstruction-run-id>/outputs/reference-strategy-deconstruction.json"
+      ],
+      "notes": "Only decomposed references can be promoted into the durable bank."
+    },
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Use current strategy to map pain ids and judge fit."
+    }
+  ],
+  "handoff_policy": "Normalize reusable reference strategy only; preserve original text/media as source evidence and mark do-not-copy boundaries.",
+  "writes": [
+    "runs/<run-id>/outputs/reference-bank-additions.json",
+    "runs/<run-id>/outputs/reference-bank-additions.md",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "work/topics/",
+    "work/scripts/"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/project-manifest.schema.json",
+  "missing_data_behavior": "emit_missing_deconstruction_report"
+}

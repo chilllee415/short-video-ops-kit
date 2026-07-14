@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feedback Learning",
+  "type": "object",
+  "required": ["feedback_id"],
+  "properties": {
+    "feedback_id": { "type": "string" },
+    "period": { "type": "object", "additionalProperties": true },
+    "validated_pain_ids": { "type": "array", "items": { "type": "string" } },
+    "weakened_pain_ids": { "type": "array", "items": { "type": "string" } },
+    "effective_hooks": { "type": "array", "items": { "type": "string" } },
+    "ineffective_hooks": { "type": "array", "items": { "type": "string" } },
+    "effective_ctas": { "type": "array", "items": { "type": "string" } },
+    "invalid_traffic_patterns": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

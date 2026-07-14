@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reference Swipe",
+  "type": "object",
+  "required": ["source", "original_topic", "why_it_works", "portable_structure", "rewrite_angle"],
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["platform", "url_or_note"],
+      "properties": {
+        "platform": { "type": "string" },
+        "creator": { "type": "string" },
+        "url_or_note": { "type": "string" },
+        "observed_metric": { "type": "string" },
+        "upload_date": { "type": "string" },
+        "duration_seconds": { "type": "number" }
+      }
+    },
+    "original_topic": { "type": "string" },
+    "why_it_works": { "type": "array", "items": { "type": "string" } },
+    "portable_structure": { "type": "array", "items": { "type": "string" } },
+    "do_not_copy": { "type": "array", "items": { "type": "string" } },
+    "rewrite_angle": {
+      "type": "object",
+      "required": ["new_concept", "new_scene", "new_hook"],
+      "properties": {
+        "new_concept": { "type": "string" },
+        "new_scene": { "type": "string" },
+        "new_hook": { "type": "string" },
+        "cta": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "primary_audiences": [
+    {
+      "audience_id": "operators",
+      "label": "operators",
+      "description": "People responsible for repeated content, sales, customer-service, or delivery workflows."
+    },
+    {
+      "audience_id": "small-business-owners",
+      "label": "small-business owners",
+      "description": "Owners who care about saving time, reducing manual work, and improving conversion."
+    }
+  ],
+  "disqualified_audiences": [
+    "people only looking for generic AI tutorials",
+    "people only looking for make-money shortcuts"
+  ]
+}

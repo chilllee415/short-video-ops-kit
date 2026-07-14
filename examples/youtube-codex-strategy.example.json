@@ -1,0 +1,64 @@
+{
+  "run_name": "youtube-codex-strategy",
+  "strategy": {
+    "stage_goal": "increase qualified comments and private messages from users with real business workflows",
+    "primary_strategy": "result-first scenario diagnosis from proven YouTube structures",
+    "target_audience": ["operators", "knowledge-service creators", "small-business owners"],
+    "rewrite_principle": "turn AI/Codex references into visible business outcomes, enterprise enablement scenarios, and workflow diagnosis"
+  },
+  "retrieval_strategy": {
+    "mode": "result_first",
+    "sort": "strategy_fit_then_views",
+    "preferred_intents": [
+      "business_outcome",
+      "workflow_automation",
+      "case_study",
+      "role_scenario",
+      "comparison_decision"
+    ],
+    "deprioritized_intents": ["tutorial_setup", "provider_sales"]
+  },
+  "limits": {
+    "per_query": 6,
+    "per_channel": 8,
+    "min_views": 0
+  },
+  "official_sources": [
+    "https://developers.openai.com/codex/videos"
+  ],
+  "topic_queries": [
+    "AI agent business workflow case study",
+    "AI automation business results",
+    "AI agent automates business operations",
+    "AI workflow for small business"
+  ],
+  "strategy_queries": [
+    "Codex real business workflow",
+    "AI coding agent real world workflow",
+    "Claude Code vs Codex business workflow",
+    "AI agents for business operations",
+    "AI workflow saves time business"
+  ],
+  "competitor_channels": [
+    {
+      "name": "OpenAI",
+      "url": "https://www.youtube.com/@OpenAI/videos",
+      "why": "official product releases and demos"
+    },
+    {
+      "name": "Nate Herk AI Automation",
+      "url": "https://www.youtube.com/@NateHerk/videos",
+      "why": "AI automation course and workflow positioning"
+    },
+    {
+      "name": "Tech With Tim",
+      "url": "https://www.youtube.com/@TechWithTim/videos",
+      "why": "developer-friendly AI tool comparisons; only use when it can be rewritten into task-type decisions"
+    },
+    {
+      "name": "Builder.io",
+      "url": "https://www.youtube.com/@builderio/videos",
+      "why": "AI coding agent comparisons and product demos; prioritize outcome demos over setup tutorials"
+    }
+  ]
+}

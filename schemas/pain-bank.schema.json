@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pain Bank",
+  "type": "object",
+  "required": ["pain_bank_id", "pains"],
+  "properties": {
+    "pain_bank_id": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "pains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pain_id", "target_role", "business_scene", "repeated_action", "frequency", "ai_transformable", "visible_result"],
+        "properties": {
+          "pain_id": { "type": "string" },
+          "target_role": { "type": "string" },
+          "business_scene": { "type": "string" },
+          "user_words": { "type": "array", "items": { "type": "string" } },
+          "repeated_action": { "type": "string" },
+          "current_cost": { "type": "object", "additionalProperties": true },
+          "frequency": { "type": "string" },
+          "ai_transformable": { "type": "boolean" },
+          "visible_result": { "type": "string" },
+          "convertible_offer": { "type": "string" },
+          "evidence_ids": { "type": "array", "items": { "type": "string" } },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

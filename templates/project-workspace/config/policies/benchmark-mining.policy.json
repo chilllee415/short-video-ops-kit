@@ -1,0 +1,15 @@
+{
+  "policy_id": "benchmark-mining-default",
+  "version": "1.1.0",
+  "status": "active",
+  "purpose": "围绕已有候选选题寻找和拆解供给侧高表现内容。",
+  "requires_candidate_topic": true,
+  "requires_mixed_selection": true,
+  "selected_topic_source": "work/topics/selections/daily.json",
+  "lane_is_immutable_during_benchmark_research": true,
+  "evidence_role": "supply_content",
+  "allowed_uses": ["hook", "proof", "structure", "pacing", "cta"],
+  "forbidden_uses": ["prove_user_demand", "change_account_strategy", "copy_source_content"],
+  "viral_label_requires": ["attributable_url_or_id", "observed_at", "verified_performance_metric"],
+  "missing_metric_label": "structure_reference"
+}

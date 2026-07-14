@@ -1,0 +1,49 @@
+{
+  "workflow_id": "reference-research-plan",
+  "purpose": "Turn confirmed account strategy and the current content intent into a concrete platform/query/sample plan before downloading reference videos.",
+  "reads": [
+    "project.manifest.json",
+    "config/profile/account.profile.json",
+    "data/operations/current/account-snapshot.json",
+    "data/topic-research/current/pain-bank.json",
+    "data/benchmarks/current/reference-bank.json",
+    "config/strategy/strategy-brief.json"
+    ,"work/topics/selections/daily.json"
+  ],
+  "optional_reads": [
+    "data/feedback/current/learning.json",
+    "runs/<reference-strategy-run-id>/outputs/reference-strategy-deconstruction.json",
+    "current draft supplied by user"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Reference search must follow the confirmed account stage and content strategy."
+    },
+    {
+      "workflow_id": "pain-bank-builder",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "data/topic-research/current/pain-bank.json"
+      ],
+      "notes": "Queries should map to real audience pain rather than generic AI trends."
+    }
+  ],
+  "handoff_policy": "Produce a platform/query/sample plan only; do not download media or decompose transcripts.",
+  "writes": [
+    "runs/<run-id>/outputs/reference-research-plan.json",
+    "runs/<run-id>/outputs/reference-research-plan.md"
+  ],
+  "must_not_write": [
+    "data/benchmarks/raw/references/",
+    "data/benchmarks/current/reference-bank.json",
+    "work/topics/"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/reference-research-plan.schema.json",
+  "missing_data_behavior": "emit_research_assumptions_and_confidence"
+}

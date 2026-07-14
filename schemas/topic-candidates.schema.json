@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Topic Candidates",
+  "type": "object",
+  "required": ["candidate_set_id", "strategy_id", "strategy_assessment_id", "topics"],
+  "properties": {
+    "candidate_set_id": { "type": "string" },
+    "strategy_id": { "type": "string" },
+    "strategy_assessment_id": { "type": "string" },
+    "status": { "type": "string" },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["topic_id", "strategy_id", "strategy_assessment_id", "strategy_status", "account_fit", "search_scope_ids", "signal_ids", "topic_mode", "validation_hypothesis", "title", "visible_result", "cta", "score"],
+        "properties": {
+          "topic_id": { "type": "string" },
+          "pain_id": { "type": "string" },
+          "strategy_id": { "type": "string" },
+          "strategy_assessment_id": { "type": "string" },
+          "strategy_status": { "type": "string", "enum": ["current_confirmed", "adjacent_proposal"] },
+          "account_fit": {
+            "type": "object",
+            "required": ["fit_status", "persona_match", "problem_domain_match", "first_person_proof", "content_role", "fit_reason"],
+            "properties": {
+              "fit_status": {"type": "string", "enum": ["core", "adjacent_experiment", "reject"]},
+              "persona_match": {"type": "boolean"},
+              "problem_domain_match": {"type": "boolean"},
+              "first_person_proof": {"type": "boolean"},
+              "content_role": {"type": "string", "enum": ["automation_result", "developer_build", "tool_bridge", "process_review", "meta_operations", "business_diagnosis"]},
+              "fit_reason": {"type": "string", "minLength": 1},
+              "proof_asset": {"type": "string"}
+            }
+          },
+          "search_scope_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "signal_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "topic_mode": { "type": "string", "enum": ["searchable", "shareable", "hybrid"] },
+          "validation_hypothesis": { "type": "string" },
+          "reference_ids": { "type": "array", "items": { "type": "string" } },
+          "evidence_ids": { "type": "array", "items": { "type": "string" } },
+          "priority": { "type": "string" },
+          "title": { "type": "string" },
+          "target_role": { "type": "string" },
+          "scene": { "type": "string" },
+          "hook": { "type": "string" },
+          "visible_result": { "type": "string" },
+          "recording_plan_ref": { "type": "string" },
+          "cta": { "type": "string" },
+          "score": { "type": "object", "additionalProperties": { "type": "number" } }
+        }
+      }
+    }
+  }
+}

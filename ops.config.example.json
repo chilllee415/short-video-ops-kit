@@ -1,0 +1,5 @@
+{
+  "workspace_root": "/path/to/client-workspace",
+  "workspace_manifest": "project.manifest.json",
+  "notes": "This file is an example only. Real workspace paths can be passed through SHORT_VIDEO_OPS_WORKSPACE and do not need to be committed."
+}

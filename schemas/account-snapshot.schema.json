@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Account Snapshot",
+  "type": "object",
+  "anyOf": [
+    {
+      "required": ["account", "period", "positioning", "diagnosis", "recent_videos"]
+    },
+    {
+      "required": ["snapshot_id", "period", "account_stage", "main_bottleneck", "strengths", "risks"]
+    }
+  ],
+  "properties": {
+    "snapshot_id": { "type": "string" },
+    "account": {
+      "type": "object",
+      "required": ["handle", "platform"],
+      "properties": {
+        "handle": { "type": "string" },
+        "platform": { "type": "string" },
+        "industry": { "type": "string" }
+      }
+    },
+    "period": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string" },
+        "end": { "type": "string" }
+      }
+    },
+    "account_stage": { "type": "string" },
+    "main_bottleneck": { "type": "string" },
+    "strengths": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "metrics_summary": { "type": "object", "additionalProperties": true },
+    "source_refs": { "type": "array", "items": { "type": "string" } },
+    "positioning": {
+      "type": "object",
+      "required": ["target_audience", "offer", "content_promise"],
+      "properties": {
+        "target_audience": { "type": "array", "items": { "type": "string" } },
+        "offer": { "type": "string" },
+        "content_promise": { "type": "string" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "diagnosis": {
+      "type": "object",
+      "required": ["stage", "main_bottleneck", "strengths", "risks"],
+      "properties": {
+        "stage": { "type": "string" },
+        "main_bottleneck": { "type": "string" },
+        "strengths": { "type": "array", "items": { "type": "string" } },
+        "risks": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "recent_videos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string" },
+          "publish_date": { "type": "string" },
+          "views": { "type": "number" },
+          "completion_rate": { "type": "number" },
+          "comments": { "type": "number" },
+          "private_messages": { "type": "number" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

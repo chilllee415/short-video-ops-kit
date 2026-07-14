@@ -1,0 +1,65 @@
+{
+  "plan_id": "DCP-2026-01-07-example",
+  "plan_date": "2026-01-07",
+  "strategy_id": "S-2026-W01-example",
+  "strategy_assessment_id": "SA-2026-01-07-example",
+  "status": "ready",
+  "source_dates": {
+    "account": "2026-01-07",
+    "topic": "2026-01-07",
+    "demand": "2026-01-07",
+    "reference": "2026-01-07"
+  },
+  "research_summary": {
+    "account_signal": "The latest short entry needs a clearer visible result.",
+    "topic_signal": "Users repeatedly ask how to turn scattered feedback into executable content.",
+    "demand_signal": "Users repeatedly ask how to turn scattered feedback into executable content.",
+    "reference_signal": "Result-first demonstrations provide the most transferable structure.",
+    "missing_or_blocked": []
+  },
+  "command": {
+    "date": "2026-01-07",
+    "titlePrefix": "今天优先拍",
+    "highlight": "结果前置型入口",
+    "copy": "先展示整理完成的结果，再解释输入和工作流。",
+    "keywords": ["场景", "结果", "工作流"],
+    "checks": ["先给结果", "使用真实输入", "只保留一个 CTA"],
+    "gates": [
+      {"label": "KEEP", "text": "保留真实场景和可见结果。"},
+      {"label": "TEST", "text": "测试更短的结果前置 Hook。"},
+      {"label": "CUT", "text": "减少没有证据的泛工具介绍。"}
+    ]
+  },
+  "schedule": [
+    {"time": "10:00", "text": "确认脱敏输入和 Hook"},
+    {"time": "11:30", "text": "录制结果前置版本"},
+    {"time": "16:30", "text": "完成发布前门禁"}
+  ],
+  "plans": [
+    {
+      "topic_id": "T-example-001",
+      "pain_id": "P-example-001",
+      "strategy_id": "S-2026-W01-example",
+      "strategy_assessment_id": "SA-2026-01-07-example",
+      "search_scope_ids": ["scope-example-main"],
+      "signal_ids": ["DS-example-001"],
+      "reference_ids": ["R-example-001"],
+      "evidence_ids": ["DS-example-001"],
+      "type": "primary",
+      "label": "主推选题",
+      "icon": "zap",
+      "score": "优先级 95",
+      "title": "先把零散反馈整理成今天能拍的内容计划。",
+      "hook": "前 3 秒：一堆反馈已经变成三条可执行内容。",
+      "visible_result": "反馈列表变成带优先级的内容计划。",
+      "cta": "评论“计划”",
+      "steps": [
+        {"time": "0-3s", "text": "展示最终计划"},
+        {"time": "3-10s", "text": "展示真实输入"},
+        {"time": "10-20s", "text": "说明筛选逻辑"},
+        {"time": "20-30s", "text": "评论关键词"}
+      ],
+      "meta": ["结果前置", "预计 30 秒", "评论“计划”"]
+    }
+  ]
+}

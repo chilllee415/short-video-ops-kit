@@ -1,0 +1,67 @@
+{
+  "index_version": "1.0.0",
+  "scope": "repository",
+  "last_reviewed": "2026-07-06",
+  "entries": [
+    {
+      "path": "docs/",
+      "type": "directory",
+      "purpose": "Architecture, data flow, and migration documentation.",
+      "contains_private_data": false
+    },
+    {
+      "path": "schemas/",
+      "type": "directory",
+      "purpose": "JSON schemas used to validate manifests and normalized assets.",
+      "contains_private_data": false
+    },
+    {
+      "path": "manifests/",
+      "type": "directory",
+      "purpose": "Agent-readable workflow read/write contracts.",
+      "contains_private_data": false
+    },
+    {
+      "path": "workflows/",
+      "type": "directory",
+      "purpose": "Human-readable workflow explanations.",
+      "contains_private_data": false
+    },
+    {
+      "path": "modes/",
+      "type": "directory",
+      "purpose": "Personal and commercial operating mode documentation.",
+      "contains_private_data": false
+    },
+    {
+      "path": "skills/",
+      "type": "directory",
+      "purpose": "Commercial-safe reusable skill assets and promotion rules.",
+      "contains_private_data": false
+    },
+    {
+      "path": "templates/project-workspace/",
+      "type": "directory",
+      "purpose": "Reusable customer workspace template.",
+      "contains_private_data": false
+    },
+    {
+      "path": "templates/workspace-policies/",
+      "type": "directory",
+      "purpose": "Default workspace policies for personal and commercial modes.",
+      "contains_private_data": false
+    },
+    {
+      "path": "scripts/",
+      "type": "directory",
+      "purpose": "Validation, reference mining, HTML rendering scripts, and stable automation entrypoints.",
+      "contains_private_data": false
+    },
+    {
+      "path": "examples/",
+      "type": "directory",
+      "purpose": "Public example data.",
+      "contains_private_data": false
+    }
+  ]
+}

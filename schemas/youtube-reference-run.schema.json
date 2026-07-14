@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "YouTube Reference Run",
+  "type": "object",
+  "required": ["run_name", "strategy", "candidates"],
+  "properties": {
+    "run_name": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "strategy": {
+      "type": "object",
+      "properties": {
+        "stage_goal": { "type": "string" },
+        "primary_strategy": { "type": "string" },
+        "target_audience": { "type": "array", "items": { "type": "string" } },
+        "rewrite_principle": { "type": "string" }
+      }
+    },
+    "retrieval_strategy": {
+      "type": "object",
+      "properties": {
+        "mode": { "type": "string" },
+        "sort": { "type": "string" },
+        "preferred_intents": { "type": "array", "items": { "type": "string" } },
+        "deprioritized_intents": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "official_sources": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_type", "title", "url"],
+        "properties": {
+          "source_type": { "type": "string" },
+          "source_label": { "type": "string" },
+          "title": { "type": "string" },
+          "channel": { "type": "string" },
+          "url": { "type": "string" },
+          "view_count": { "type": "number" },
+          "upload_date": { "type": "string" },
+          "duration_seconds": { "type": "number" },
+          "title_patterns": { "type": "array", "items": { "type": "string" } },
+          "content_intents": { "type": "array", "items": { "type": "string" } },
+          "strategy_fit_score": { "type": "number" },
+          "rewrite_lens": { "type": "string" },
+          "breakdown_prompt": { "type": "object" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "assessment_id": "SA-template",
+  "run_date": "2026-01-01",
+  "generated_at": "2026-01-01T00:00:00+08:00",
+  "strategy_id": "strategy-template",
+  "evidence_window": {"start": "2026-01-01", "end": "2026-01-01", "public_post_count": 0, "comparable_post_count": 0, "execution_variant_count": 0},
+  "decision": "run_validation_experiment",
+  "direction_health": "uncertain",
+  "confidence": "low",
+  "conclusion": "样本不足，先运行验证型选题，不调整账号定位或内容策略。",
+  "dimensions": {"direction_signal": "样本不足。", "execution_signal": "样本不足。", "cadence_signal": "样本不足。", "audience_quality_signal": "样本不足。", "conversion_signal": "样本不足。"},
+  "evidence": [{"evidence_id": "template-evidence", "dimension": "cadence_signal", "observation": "尚无公开作品样本。", "implication": "需要先发布验证内容。", "source_ref": "data/operations/current/content-performance.json"}],
+  "counter_evidence": [],
+  "execution_constraints": [],
+  "validation_experiments": [{"hypothesis": "待验证。", "controlled_variable": "只改变一个变量。", "success_metrics": ["目标反馈"], "decision_rule": "积累足够样本后再判断。"}],
+  "proposed_strategy_change": {"status": "none", "scope": "none", "changes": [], "requires_user_confirmation": true}
+}

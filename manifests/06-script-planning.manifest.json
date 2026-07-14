@@ -1,0 +1,56 @@
+{
+  "workflow_id": "script-planning",
+  "purpose": "Turn selected topics into scripts and recording plans.",
+  "reads": [
+    "project.manifest.json",
+    "config/strategy/strategy-brief.json",
+    "work/topics/selections/daily.json",
+    "work/topics/conservative/current.json",
+    "work/topics/experimental/current.json",
+    "data/topic-research/current/pain-bank.json",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "optional_reads": [
+    "config/profile/offer.profile.json",
+    "runs/<copy-reference-match-run-id>/outputs/copy-reference-match.json"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "topic-candidates",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "work/topics/selections/daily.json"
+      ],
+      "notes": "Scripts should be written from selected topics, not from raw reference videos."
+    },
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Script angle and CTA must stay aligned with the confirmed strategy."
+    },
+    {
+      "workflow_id": "copy-optimization-reference-match",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "runs/<copy-reference-match-run-id>/outputs/copy-reference-match.json"
+      ],
+      "notes": "Required before optimizing a user-provided draft; optional when generating from selected topics."
+    }
+  ],
+  "handoff_policy": "Turn selected topics into scripts and recording plans only; do not mutate strategy, pain bank, or reference bank.",
+  "writes": [
+    "work/scripts/",
+    "work/plans/recording/",
+    "runs/<run-id>/outputs/"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "data/topic-research/current/pain-bank.json",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "requires_user_confirmation": false,
+  "missing_data_behavior": "emit_missing_data_report"
+}

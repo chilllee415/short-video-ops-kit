@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Strategy Brief",
+  "type": "object",
+  "required": ["strategy_id", "status", "confirmed_by_user", "stage_goal", "target_audience_ids", "priority_pain_ids", "primary_strategy"],
+  "properties": {
+    "strategy_id": { "type": "string" },
+    "status": { "type": "string" },
+    "confirmed_by_user": { "type": "boolean" },
+    "stage_goal": { "type": "string" },
+    "target_audience_ids": { "type": "array", "items": { "type": "string" } },
+    "priority_pain_ids": { "type": "array", "items": { "type": "string" } },
+    "primary_strategy": { "type": "string" },
+    "content_ratio": { "type": "object", "additionalProperties": { "type": "string" } },
+    "scoring_weights": { "type": "object", "additionalProperties": { "type": "number" } },
+    "conversion_path": { "type": "string" },
+    "source_policy": { "type": "object", "additionalProperties": true },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "decision_log_refs": { "type": "array", "items": { "type": "string" } }
+  }
+}

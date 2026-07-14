@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Content Strategy Assessment",
+  "type": "object",
+  "required": ["assessment_id", "run_date", "generated_at", "strategy_id", "evidence_window", "decision", "direction_health", "confidence", "conclusion", "dimensions", "evidence", "counter_evidence", "execution_constraints", "validation_experiments", "proposed_strategy_change"],
+  "properties": {
+    "assessment_id": {"type": "string", "minLength": 1},
+    "run_date": {"type": "string", "format": "date"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "strategy_id": {"type": "string", "minLength": 1},
+    "evidence_window": {
+      "type": "object",
+      "required": ["start", "end", "public_post_count", "comparable_post_count", "execution_variant_count"],
+      "properties": {
+        "start": {"type": "string", "format": "date"},
+        "end": {"type": "string", "format": "date"},
+        "public_post_count": {"type": "integer", "minimum": 0},
+        "comparable_post_count": {"type": "integer", "minimum": 0},
+        "execution_variant_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "decision": {"type": "string", "enum": ["continue_current", "optimize_execution", "run_validation_experiment", "propose_strategy_adjustment"]},
+    "direction_health": {"type": "string", "enum": ["supported", "uncertain", "weakened"]},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+    "conclusion": {"type": "string", "minLength": 1},
+    "dimensions": {
+      "type": "object",
+      "required": ["direction_signal", "execution_signal", "cadence_signal", "audience_quality_signal", "conversion_signal"],
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidenceItem"}},
+    "counter_evidence": {"type": "array", "items": {"$ref": "#/$defs/evidenceItem"}},
+    "execution_constraints": {"type": "array", "items": {"type": "string"}},
+    "validation_experiments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["hypothesis", "controlled_variable", "success_metrics", "decision_rule"],
+        "properties": {
+          "hypothesis": {"type": "string"},
+          "controlled_variable": {"type": "string"},
+          "success_metrics": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "decision_rule": {"type": "string"}
+        }
+      }
+    },
+    "proposed_strategy_change": {
+      "type": "object",
+      "required": ["status", "scope", "changes", "requires_user_confirmation"],
+      "properties": {
+        "status": {"type": "string", "enum": ["none", "proposed"]},
+        "scope": {"type": "string", "enum": ["none", "content_strategy_only"]},
+        "changes": {"type": "array", "items": {"type": "string"}},
+        "requires_user_confirmation": {"type": "boolean"}
+      }
+    }
+  },
+  "$defs": {
+    "evidenceItem": {
+      "type": "object",
+      "required": ["evidence_id", "dimension", "observation", "implication", "source_ref"],
+      "properties": {
+        "evidence_id": {"type": "string"},
+        "dimension": {"type": "string", "enum": ["direction_signal", "execution_signal", "cadence_signal", "audience_quality_signal", "conversion_signal"]},
+        "observation": {"type": "string"},
+        "implication": {"type": "string"},
+        "source_ref": {"type": "string"}
+      }
+    }
+  }
+}

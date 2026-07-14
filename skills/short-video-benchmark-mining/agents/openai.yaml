@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Video Benchmark Mining"
+  short_description: "围绕已选题查找高价值参考内容并拆解可迁移的表达结构策略"
+  default_prompt: "Use $short-video-benchmark-mining to find and deconstruct benchmarks for the selected topics."

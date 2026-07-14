@@ -1,0 +1,39 @@
+{
+  "policy_id": "topic-selection-default",
+  "version": "3.2.0",
+  "status": "active",
+  "purpose": "依据策略健康度结论，对账号搜索空间内、已有可追溯机会信号或明确验证假设的候选选题排序和组合。",
+  "max_candidates": 6,
+  "max_daily_plans": 3,
+  "weights": {"strategy_fit": 20, "real_audience_interest": 15, "problem_solving_value": 15, "attention_potential": 15, "visible_result_or_proof": 10, "timeliness_momentum": 10, "differentiation_gap": 5, "commercial_path": 5, "production_feasibility": 5},
+  "topic_modes": ["searchable", "shareable", "hybrid"],
+  "hard_account_fit_gates": {
+    "required": true,
+    "fields": ["persona_match", "problem_domain_match", "first_person_proof", "content_role", "fit_reason"],
+    "allowed_fit_status_for_daily_plan": ["core"],
+    "adjacent_experiment_requires_separate_slot": true,
+    "reject_if_only_shared_terms_are": ["AI", "workflow", "efficiency", "automation"],
+    "primary_construction_pattern": "specific_object + repetitive_action + ai_execution + visible_result"
+  },
+  "lane_policy": {
+    "candidate_ratio": {"conservative": 60, "experimental": 40},
+    "default_candidate_count": {"conservative": 6, "experimental": 4},
+    "daily_selection_count": {"conservative": 2, "experimental": 1},
+    "rank_within_lane_only": true,
+    "global_scoreboard_forbidden": true,
+    "selection_writer": "mix_candidate_selection",
+    "experimental_ttl_days": 7,
+    "promotion_rule": {
+      "minimum_comparable_public_tests": 2,
+      "recommended_public_tests": 3,
+      "required_signals": ["saves_or_follows", "high_quality_comments", "stable_account_recognition"],
+      "views_alone_are_insufficient": true,
+      "requires_user_confirmation": true
+    }
+  },
+  "required_lineage": ["topic_id", "strategy_id", "strategy_assessment_id", "search_scope_ids", "signal_ids", "account_fit"],
+  "pain_id_required": false,
+  "formal_signal_roles": ["audience_pain", "search_interest", "hot_topic", "industry_signal", "market_task", "content_gap"],
+  "daily_mix": ["core_real_task", "core_tool_or_feature_bridge", "core_process_review"],
+  "automation_may_write_selection": false
+}

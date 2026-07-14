@@ -1,0 +1,208 @@
+{
+  "workflow_id": "daily-ops-loop",
+  "contract_version": "3.3.0",
+  "purpose": "Execute the daily loop without mixing stable strategy, operating performance, topic opportunity research, benchmark supply, execution plans, or presentation artifacts.",
+  "workspace_contract": "data.contract.json",
+  "handoff_policy": "Load the confirmed strategy boundary, run independent evidence producers in parallel, persist each handoff, join at explicit gates, then render sequentially. A node may only write its declared outputs and may never reinterpret another data domain.",
+  "parallel_groups": [
+    {"group_id": "daily_evidence_producers", "nodes": ["observe_operations", "collect_audience_evidence", "collect_market_signals"], "join": "normalize_topic_opportunities"},
+    {"group_id": "candidate_lane_builders", "nodes": ["build_conservative_candidates", "build_experimental_candidates"], "join": "mix_candidate_selection"},
+    {"group_id": "benchmark_fanout", "nodes": ["research_each_selected_topic"], "join": "build_execution_plan"}
+  ],
+  "reads": [
+    "project.manifest.json",
+    "data.contract.json",
+    "workspace.policy.json",
+    "config/profile/",
+    "config/strategy/strategy-brief.json",
+    "config/policies/",
+    "data/operations/",
+    "data/topic-research/current/strategy-assessment.json",
+    "data/topic-research/",
+    "data/benchmarks/",
+    "data/feedback/",
+    "work/topics/"
+  ],
+  "writes": [
+    "data/operations/current/",
+    "data/topic-research/current/",
+    "data/benchmarks/current/",
+    "data/feedback/current/",
+    "work/topics/conservative/current.json",
+    "work/topics/experimental/current.json",
+    "work/topics/selections/daily.json",
+    "work/plans/",
+    "presentation/",
+    "runs/<run-id>/"
+  ],
+  "nodes": [
+    {
+      "node_id": "observe_operations",
+      "level": "L2",
+      "function": "Read current account/post performance and produce tactical content constraints.",
+      "reads": ["data/operations/raw/", "data/feedback/raw/", "data/feedback/current/learning.json"],
+      "writes": [
+        "data/operations/current/account-snapshot.json",
+        "data/operations/current/content-performance.json",
+        "runs/<run-id>/outputs/ops-diagnosis.json"
+      ],
+      "outputs_mean": "Hook, pacing, duration, proof timing, CTA, and topic-mix constraints.",
+      "must_not": ["invent user demand", "select a business topic", "overwrite profile or confirmed strategy"]
+    },
+    {
+      "node_id": "collect_audience_evidence",
+      "level": "L3",
+      "function": "Normalize first-party comments, messages, questions and user language without reading operating conclusions or benchmark content.",
+      "reads": ["config/profile/audience.profile.json", "data/operations/raw/audience-interactions/", "data/topic-research/raw/customer-dialogue/"],
+      "writes": ["data/topic-research/current/audience-signals.json", "runs/<run-id>/outputs/audience-evidence.json"],
+      "accepted_evidence_roles": ["user_need", "market_task", "audience_pain"],
+      "must_not": ["write strategy", "write market signals", "write candidate lanes", "read presentation"]
+    },
+    {
+      "node_id": "collect_market_signals",
+      "level": "L3",
+      "function": "Search strategy-bounded current interests, industry/tool changes, market tasks and content gaps without selecting topics.",
+      "reads": ["runs/<run-id>/outputs/topic-research-brief.json", "data/topic-research/raw/market-signals/"],
+      "writes": ["data/topic-research/raw/market-signals/<date>-market-signals.json", "data/topic-research/current/market-signals.json", "runs/<run-id>/outputs/market-signal-collection.json"],
+      "accepted_evidence_roles": ["search_interest", "hot_topic", "industry_signal", "market_task", "content_gap", "supply_content"],
+      "must_not": ["write strategy", "write audience signals", "write candidate lanes", "turn supply popularity into demand"]
+    },
+    {
+      "node_id": "load_strategy_boundary",
+      "level": "L0-L1",
+      "function": "Load the durable account direction that bounds topic discovery.",
+      "reads": ["config/profile/", "config/strategy/strategy-brief.json", "config/strategy/decision-log.md", "config/policies/topic-discovery.policy.json", "config/policies/topic-selection.policy.json", "config/policies/benchmark-mining.policy.json"],
+      "writes": ["runs/<run-id>/outputs/topic-research-brief.json"],
+      "gate": "Formal topic work requires account.profile positioning_status=confirmed with explicit positioning provenance, plus strategy-brief.status=confirmed and confirmed_by_user=true. Generic approval of an implementation plan is not positioning confirmation.",
+      "must_not": ["write config/profile", "write config/strategy", "promote a topic/tool/experiment into strategy"]
+    },
+    {
+      "node_id": "assess_strategy_health",
+      "level": "L2.5",
+      "function": "Separate direction evidence from execution, cadence, audience-quality and conversion evidence; choose continue_current, optimize_execution, run_validation_experiment or propose_strategy_adjustment before searching for topics.",
+      "reads": [
+        "config/profile/",
+        "config/strategy/strategy-brief.json",
+        "data/operations/current/account-snapshot.json",
+        "data/operations/current/content-performance.json",
+        "data/feedback/current/learning.json",
+        "runs/<run-id>/outputs/ops-diagnosis.json",
+        "runs/<run-id>/outputs/topic-research-brief.json"
+      ],
+      "writes": ["data/topic-research/current/strategy-assessment.json", "runs/<run-id>/outputs/strategy-assessment.json"],
+      "decisions": ["continue_current", "optimize_execution", "run_validation_experiment", "propose_strategy_adjustment"],
+      "gate": "propose_strategy_adjustment requires at least 3 comparable public posts, 2 execution variants and persistently weak target response. Insufficient evidence becomes run_validation_experiment.",
+      "must_not": ["overwrite account positioning", "write confirmed strategy", "judge direction from views alone", "treat one post or one hot topic as a strategy change"]
+    },
+    {
+      "node_id": "normalize_topic_opportunities",
+      "level": "L3",
+      "function": "Join independently collected audience and market evidence with the confirmed search boundary and strategy-health decision, preserving evidence roles.",
+      "reads": [
+        "runs/<run-id>/outputs/topic-research-brief.json",
+        "data/topic-research/current/strategy-assessment.json",
+        "data/topic-research/current/audience-signals.json",
+        "data/topic-research/current/market-signals.json",
+        "data/topic-research/current/pain-bank.json"
+      ],
+      "writes": [
+        "data/topic-research/current/topic-signals.json",
+        "data/topic-research/current/pain-bank.json",
+        "runs/<run-id>/outputs/topic-discovery-result.json"
+      ],
+      "valid_signal_roles": ["audience_pain", "search_interest", "hot_topic", "industry_signal", "market_task", "content_gap"],
+      "context_only_roles": ["strategy_evidence", "execution_constraint", "operational_constraint", "supply_content"],
+      "minimum_query_families": 3,
+      "must_not": ["reduce topic discovery to pain-point collection", "search from a preselected tool/title", "let a hot topic change strategy", "change strategy"]
+    },
+    {
+      "node_id": "build_candidate_lanes",
+      "level": "L5",
+      "function": "Fan out to two isolated writers: conservative 60% and experimental 40%; rank only inside each lane.",
+      "reads": [
+        "config/strategy/strategy-brief.json",
+        "data/topic-research/current/pain-bank.json",
+        "data/topic-research/current/topic-signals.json",
+        "runs/<run-id>/outputs/topic-discovery-result.json"
+      ],
+      "writes": ["work/topics/conservative/current.json", "work/topics/experimental/current.json"],
+      "required_lineage": "topic_id -> lane -> strategy_id -> strategy_assessment_id -> account_fit -> search_scope_ids -> signal_ids; pain_id is optional",
+      "gate": "Conservative topics must be core with all account-fit gates true. Experimental topics require persona and first-person proof, an expiry and a validation hypothesis. Shared words such as AI/workflow/efficiency are insufficient.",
+      "must_not": ["merge lane rankings", "write mixed selection", "use popularity without strategy fit", "research benchmarks"]
+    },
+    {
+      "node_id": "mix_candidate_selection",
+      "level": "L5.5",
+      "function": "Join ready lane outputs and select two conservative plus one experimental topic without recomputing a global score.",
+      "reads": ["work/topics/conservative/current.json", "work/topics/experimental/current.json", "config/policies/topic-selection.policy.json"],
+      "writes": ["work/topics/selections/daily.json", "runs/<run-id>/outputs/topic-selection-mix.json"],
+      "gate": "Both lanes ready and current; no rejected or expired topic; daily mix exactly 2 conservative + 1 experimental.",
+      "must_not": ["rewrite either lane", "promote experimental topics", "research benchmarks", "write plan"]
+    },
+    {
+      "node_id": "research_topic_benchmarks",
+      "level": "L4",
+      "function": "Fan out per mixed-selection topic, find supply-side examples and learn packaging structure without changing lane membership.",
+      "reads": ["work/topics/selections/daily.json", "work/topics/conservative/current.json", "work/topics/experimental/current.json", "data/benchmarks/raw/references/", "data/benchmarks/current/reference-bank.json"],
+      "writes": ["data/benchmarks/current/reference-bank.json", "runs/<run-id>/outputs/reference-strategy-deconstruction.json"],
+      "outputs_mean": "Hook, proof, structure, pacing, and CTA patterns only.",
+      "must_not": ["change account strategy", "change candidate lane", "copy wording/media/cases", "call a sample viral without a real metric"]
+    },
+    {
+      "node_id": "build_execution_plan",
+      "level": "L6",
+      "function": "Apply operations constraints and benchmark structures to candidate topics.",
+      "reads": [
+        "work/topics/selections/daily.json",
+        "work/topics/conservative/current.json",
+        "work/topics/experimental/current.json",
+        "data/topic-research/current/strategy-assessment.json",
+        "data/operations/current/account-snapshot.json",
+        "data/operations/current/content-performance.json",
+        "data/feedback/current/learning.json",
+        "data/benchmarks/current/reference-bank.json"
+      ],
+      "writes": ["work/plans/daily.json", "work/plans/recording/"],
+      "must_not": ["turn an operations metric into account direction", "change strategy", "publish"]
+    },
+    {
+      "node_id": "render_and_verify",
+      "level": "L8",
+      "function": "Render upstream facts without inventing conclusions, timestamps, scores, or freshness.",
+      "reads": ["all declared upstream artifacts"],
+      "writes": [
+        "presentation/ops-dashboard.json",
+        "presentation/internal-pages/运营大盘.html",
+        "runs/<run-id>/outputs/dashboard-html-verification.json",
+        "runs/<run-id>/outputs/daily-ops-closure.json"
+      ],
+      "gate": "Unconfirmed positioning provenance, missing strategy assessment, blocked plan, incomplete search scope, missing topic signals, account-fit failure, lineage failure, or HTML mismatch prevents rendering/closure.",
+      "must_not": ["hard-code business conclusions", "use file mtime as data date", "treat HTML as source of truth"]
+    },
+    {
+      "node_id": "ingest_publish_feedback",
+      "level": "L7",
+      "function": "Normalize real published-post outcomes for the next operations cycle.",
+      "reads": [
+        "data/feedback/raw/published-posts.json",
+        "data/feedback/raw/post-metrics.json",
+        "work/plans/daily.json"
+      ],
+      "writes": [
+        "data/feedback/current/learning.json",
+        "data/feedback/current/strategy-delta.json",
+        "runs/<run-id>/outputs/feedback-ingestion.json"
+      ],
+      "must_not": ["publish content", "modify platform settings", "overwrite confirmed strategy", "invent missing post metrics"]
+    }
+  ],
+  "must_not_write": [
+    "config/profile/",
+    "config/strategy/strategy-brief.json",
+    "data/feedback/raw/published-posts.json",
+    "system/"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/daily-content-plan.schema.json",
+  "missing_data_behavior": "Persist blockers and stop before HTML when formal topic evidence is missing."
+}

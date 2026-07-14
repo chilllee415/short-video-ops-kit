@@ -1,0 +1,38 @@
+{
+  "workflow_id": "pain-bank-builder",
+  "purpose": "Build and update the user pain bank from normalized user signals and market evidence.",
+  "reads": [
+    "project.manifest.json",
+    "config/profile/audience.profile.json",
+    "data/topic-research/current/audience-signals.json",
+    "data/topic-research/raw/customer-dialogue/",
+    "data/benchmarks/raw/competitors/",
+    "data/topic-research/raw/market-signals/"
+  ],
+  "optional_reads": [
+    "data/topic-research/current/pain-bank.json",
+    "data/feedback/current/learning.json"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "auto-ops-diagnosis",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "data/topic-research/current/audience-signals.json"
+      ],
+      "notes": "Use normalized audience signals when available; raw customer dialogue can still produce a partial pain bank."
+    }
+  ],
+  "handoff_policy": "Read normalized or raw evidence only; do not trigger account diagnosis from this workflow.",
+  "writes": [
+    "data/topic-research/current/pain-bank.json",
+    "runs/<run-id>/outputs/pain-bank.json"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "work/topics/"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/pain-bank.schema.json",
+  "missing_data_behavior": "emit_missing_data_report"
+}

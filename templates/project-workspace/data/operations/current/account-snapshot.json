@@ -1,0 +1,24 @@
+{
+  "snapshot_id": "",
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-01-07"
+  },
+  "account_stage": "strategy-validation",
+  "main_bottleneck": "attention does not reliably convert into qualified inquiries",
+  "strengths": [
+    "visible workflow demonstrations",
+    "clear AI implementation capability"
+  ],
+  "risks": [
+    "generic tutorial drift",
+    "topics not grounded in explicit user pains"
+  ],
+  "metrics_summary": {
+    "views": null,
+    "comments": null,
+    "private_messages": null,
+    "qualified_leads": null
+  },
+  "source_refs": []
+}

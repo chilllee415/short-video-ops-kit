@@ -1,0 +1,25 @@
+{
+  "run_date": "1970-01-01",
+  "generated_at": "",
+  "research_brief_ref": "not-collected",
+  "strategy_assessment_ref": "data/topic-research/current/strategy-assessment.json",
+  "topic_search_scope": {
+    "scope_ids": ["not-configured"],
+    "positioning": "not configured",
+    "industry": "not configured",
+    "target_audiences": ["not configured"],
+    "main_tracks": ["not configured"],
+    "stage_goal": "not configured",
+    "strategy_decision": "run_validation_experiment",
+    "search_mode": "validation",
+    "future_directions": [],
+    "exclusions": [],
+    "query_families": ["core_track", "audience_problem", "industry_change"]
+  },
+  "coverage_status": "blocked",
+  "checked_sources": [
+    {"platform": "not-collected", "source_class": "discovery", "status": "unavailable", "queries": [], "notes": "Build the strategy search scope and collect real topic opportunity signals before generating formal candidates."}
+  ],
+  "signals": [],
+  "blockers": ["No topic opportunity research has been completed."]
+}

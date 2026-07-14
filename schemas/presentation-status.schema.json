@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Presentation Status",
+  "type": "object",
+  "required": ["status", "as_of", "reason", "canonical_dashboard_exists", "next_action", "invalidated_artifacts"],
+  "properties": {
+    "status": {"type": "string", "enum": ["not_generated", "blocked", "failed_validation", "ready"]},
+    "as_of": {"type": "string"},
+    "reason": {"type": "string"},
+    "canonical_dashboard_exists": {"type": "boolean"},
+    "next_action": {"type": "string"},
+    "invalidated_artifacts": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

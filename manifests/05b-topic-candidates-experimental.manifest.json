@@ -1,0 +1,12 @@
+{
+  "workflow_id": "topic-candidates-experimental",
+  "purpose": "Build and rank the isolated 40% creative lane from current user concerns, direct language, search intent, market tasks, industry change and content gaps.",
+  "reads": ["project.manifest.json", "config/profile/account.profile.json", "config/strategy/strategy-brief.json", "config/policies/topic-discovery.policy.json", "config/policies/topic-selection.policy.json", "data/topic-research/current/strategy-assessment.json", "data/topic-research/current/topic-signals.json", "data/topic-research/current/audience-signals.json", "data/topic-research/current/pain-bank.json"],
+  "accepted_evidence_roles": ["user_need", "market_task", "audience_pain", "search_interest", "industry_signal", "hot_topic", "content_gap"],
+  "writes": ["work/topics/experimental/current.json", "work/topics/experimental/history/<run-id>.json", "runs/<run-id>/outputs/experimental-topic-candidates.json"],
+  "single_writer_for": "work/topics/experimental/current.json",
+  "hard_gate": "positioning confirmed; persona_match=true; first_person_proof=true; fit_status is core or adjacent_experiment; every topic has expires_at and validation_hypothesis",
+  "must_not_write": ["work/topics/conservative/", "work/topics/selections/", "data/benchmarks/", "work/plans/", "presentation/", "config/strategy/"],
+  "output_schema": "schemas/topic-lane.schema.json",
+  "missing_data_behavior": "write_blocked_empty_lane"
+}

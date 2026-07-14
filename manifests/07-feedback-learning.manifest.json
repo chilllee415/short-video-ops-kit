@@ -1,0 +1,49 @@
+{
+  "workflow_id": "feedback-learning",
+  "purpose": "Convert post metrics and user feedback into learning records and strategy delta suggestions.",
+  "reads": [
+    "project.manifest.json",
+    "config/strategy/strategy-brief.json",
+    "work/topics/selections/daily.json",
+    "work/topics/conservative/current.json",
+    "work/topics/experimental/current.json",
+    "data/feedback/raw/published-posts.json",
+    "data/feedback/raw/post-metrics.json"
+  ],
+  "optional_reads": [
+    "data/operations/raw/",
+    "data/topic-research/raw/customer-dialogue/"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "topic-candidates",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "work/topics/selections/daily.json"
+      ],
+      "notes": "Use topic lineage to understand whether the selected angle performed."
+    },
+    {
+      "workflow_id": "script-planning",
+      "dependency_type": "soft",
+      "required_artifacts": [
+        "work/scripts/",
+        "work/plans/recording/"
+      ],
+      "notes": "Use script and recording context when available; posted metrics can still be summarized without them."
+    }
+  ],
+  "handoff_policy": "Write learning and strategy-delta suggestions only; never overwrite confirmed strategy without strategy-confirmation.",
+  "writes": [
+    "data/feedback/current/learning.json",
+    "data/feedback/current/strategy-delta.json",
+    "runs/<run-id>/outputs/feedback-learning.json"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "data/topic-research/current/pain-bank.json"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/feedback-learning.schema.json",
+  "missing_data_behavior": "emit_missing_data_report"
+}

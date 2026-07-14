@@ -1,0 +1,29 @@
+{
+  "project_id": "public-example",
+  "schema_version": "2.2.0",
+  "workspace_type": "short-video-ops",
+  "operating_mode": "commercial",
+  "workspace_index": "workspace.index.json",
+  "workspace_policy": "workspace.policy.json",
+  "data_contract": "data.contract.json",
+  "data_policy": {"contains_private_data": false, "commit_allowed": true, "public_export_allowed": true},
+  "current": {
+    "account_profile": "config/profile/account.profile.json",
+    "offer_profile": "config/profile/offer.profile.json",
+    "audience_profile": "config/profile/audience.profile.json",
+    "strategy_brief": "config/strategy/strategy-brief.json",
+    "account_snapshot": "data/operations/current/account-snapshot.json",
+    "topic_signals": "data/topic-research/current/topic-signals.json",
+    "pain_bank": "data/topic-research/current/pain-bank.json",
+    "reference_bank": "data/benchmarks/current/reference-bank.json",
+    "topic_candidates_conservative": "work/topics/conservative/current.json",
+    "topic_candidates_experimental": "work/topics/experimental/current.json",
+    "topic_selection": "work/topics/selections/daily.json",
+    "daily_plan": "work/plans/daily.json",
+    "feedback_learning": "data/feedback/current/learning.json"
+  },
+  "artifacts": {
+    "dashboard_data": "presentation/ops-dashboard.json",
+    "dashboard_html": "presentation/internal-pages/运营大盘.html"
+  }
+}

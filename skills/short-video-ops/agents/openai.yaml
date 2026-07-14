@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Video Ops"
+  short_description: "编排并校验从账号诊断到页面回流的短视频每日运营闭环"
+  default_prompt: "Use $short-video-ops to run and verify today’s operations loop for this workspace."

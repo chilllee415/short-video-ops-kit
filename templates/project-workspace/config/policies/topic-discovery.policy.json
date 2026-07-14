@@ -1,0 +1,51 @@
+{
+  "policy_id": "topic-discovery-default",
+  "version": "3.2.0",
+  "status": "active",
+  "purpose": "先用后台数据评估当前内容策略健康度，再从账号定位、策略结论、主拍方向、细分赛道和阶段规划建立搜索空间，用多源机会信号查找适合账号的选题。",
+  "strategy_layers": {"positioning": "stable_user_confirmed_only", "content_strategy": "assess_and_propose_only", "execution_strategy": "automation_may_optimize"},
+  "positioning_authority": {
+    "required_before_search": true,
+    "accepted_source_types": ["direct_user_confirmation", "user_maintained_long_term_account_document"],
+    "forbidden_as_authority": ["generated_topic_library", "topic_candidates", "dashboard", "daily_report", "workflow_log", "benchmark_deconstruction", "model_inferred_migration"],
+    "required_provenance_fields": ["positioning_source_type", "positioning_source_ref", "confirmation_quote", "confirmed_at"],
+    "conflict_behavior": "block_formal_topic_generation_and_request_reconfirmation",
+    "generic_approval_is_not_positioning_confirmation": true
+  },
+  "strategy_assessment": {
+    "required_before_search": true,
+    "decisions": ["continue_current", "optimize_execution", "run_validation_experiment", "propose_strategy_adjustment"],
+    "evidence_dimensions": ["direction_signal", "execution_signal", "cadence_signal", "audience_quality_signal", "conversion_signal"],
+    "minimum_adjustment_evidence": {"comparable_public_posts": 3, "execution_variants": 2, "requires_persistent_weak_target_response": true},
+    "insufficient_sample_decision": "run_validation_experiment",
+    "strategy_write_allowed": false,
+    "positioning_write_allowed": false
+  },
+  "search_scope_inputs": ["account_positioning", "industry", "target_audience", "stage_goal", "primary_strategy", "strategy_assessment", "content_ratio", "conversion_path", "future_direction", "exclusions"],
+  "search_scope_layers": ["persona_and_point_of_view", "stable_problem_domain", "content_role"],
+  "candidate_lanes": {
+    "conservative": {
+      "quota_percent": 60,
+      "inputs": ["confirmed_strategy", "proven_account_themes", "industry_or_tool_changes", "execution_constraints"],
+      "construction_pattern": "proven_problem_domain + new_object_or_action_or_feature + visible_result",
+      "required_fit_status": ["core"]
+    },
+    "experimental": {
+      "quota_percent": 40,
+      "inputs": ["current_user_concerns", "direct_user_language", "search_intent", "market_tasks", "industry_change", "content_gap"],
+      "construction_pattern": "new_need_or_information + first_person_account_translation + provable_result",
+      "allowed_fit_status": ["core", "adjacent_experiment"],
+      "ttl_days": 7,
+      "requires_validation_hypothesis": true
+    },
+    "physical_isolation_required": true,
+    "cross_lane_overwrite_forbidden": true
+  },
+  "query_families": ["core_track", "audience_problem", "search_interest", "current_hot_topic", "industry_change", "adjacent_angle", "future_direction"],
+  "valid_topic_signal_roles": ["audience_pain", "search_interest", "hot_topic", "industry_signal", "market_task", "content_gap"],
+  "context_only_roles": ["strategy_evidence", "execution_constraint", "operational_constraint", "supply_content"],
+  "minimum_coverage": {"search_scope_complete": true, "query_families": 3, "discovery_platforms": 2},
+  "must_not_seed": ["agent_name", "preselected_title", "single_tool_without_strategy_fit", "generated_topic_library_as_positioning", "business_role_not_confirmed_by_user"],
+  "hot_topic_gate": "热点必须与账号方向、目标受众或阶段规划至少一项直接匹配，否则只记录不入候选。",
+  "missing_signal_behavior": "degrade_confidence_not_invent_topics"
+}

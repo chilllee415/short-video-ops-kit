@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Directory Index",
+  "type": "object",
+  "required": ["index_version", "scope", "entries"],
+  "properties": {
+    "index_version": { "type": "string" },
+    "scope": { "type": "string" },
+    "last_reviewed": { "type": "string" },
+    "data_groups": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "type", "purpose"],
+        "properties": {
+          "path": { "type": "string" },
+          "type": { "type": "string" },
+          "purpose": { "type": "string" },
+          "layer": { "type": "string" },
+          "owner_workflow": { "type": "string" },
+          "contains_private_data": { "type": "boolean" },
+          "commit_allowed": { "type": "boolean" },
+          "mutable": { "type": "boolean" },
+          "allowed_file_types": { "type": "array", "items": { "type": "string" } },
+          "readers": { "type": "array", "items": { "type": "string" } },
+          "writes": { "type": "array", "items": { "type": "string" } },
+          "examples": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "status": "not_generated",
+  "as_of": "",
+  "reason": "No ready plan has passed the finalizer.",
+  "canonical_dashboard_exists": false,
+  "next_action": "Initialize the workspace and complete a valid daily workflow.",
+  "invalidated_artifacts": []
+}

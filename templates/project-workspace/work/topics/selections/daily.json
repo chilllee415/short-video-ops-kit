@@ -1,0 +1,15 @@
+{
+  "selection_id": "selection-not-generated",
+  "selection_date": "1970-01-01",
+  "status": "blocked",
+  "mix_policy": {
+    "candidate_ratio": {"conservative": 60, "experimental": 40},
+    "daily_ratio": {"conservative": 2, "experimental": 1}
+  },
+  "source_candidate_sets": {
+    "conservative": "conservative-not-generated",
+    "experimental": "experimental-not-generated"
+  },
+  "blockers": ["Both candidate lanes must be ready before selection."],
+  "selected": []
+}

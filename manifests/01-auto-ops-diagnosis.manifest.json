@@ -1,0 +1,27 @@
+{
+  "workflow_id": "auto-ops-diagnosis",
+  "purpose": "Normalize account data and diagnose current bottlenecks.",
+  "reads": [
+    "project.manifest.json",
+    "config/profile/account.profile.json",
+    "config/profile/offer.profile.json",
+    "config/profile/audience.profile.json",
+    "data/operations/raw/",
+    "data/topic-research/raw/customer-dialogue/"
+  ],
+  "optional_reads": [
+    "data/feedback/current/learning.json"
+  ],
+  "writes": [
+    "data/operations/current/account-snapshot.json",
+    "data/operations/current/content-performance.json",
+    "runs/<run-id>/outputs/"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "work/topics/"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/project-manifest.schema.json",
+  "missing_data_behavior": "emit_missing_data_report"
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Manifest",
+  "type": "object",
+  "required": ["project_id", "schema_version", "workspace_type", "data_contract", "current"],
+  "properties": {
+    "project_id": { "type": "string" },
+    "schema_version": { "type": "string" },
+    "workspace_type": { "type": "string" },
+    "operating_mode": { "type": "string", "enum": ["personal", "commercial"] },
+    "workspace_index": { "type": "string" },
+    "workspace_policy": { "type": "string" },
+    "data_contract": { "type": "string" },
+    "data_policy": {
+      "type": "object",
+      "properties": {
+        "contains_private_data": { "type": "boolean" },
+        "commit_allowed": { "type": "boolean" },
+        "public_export_allowed": { "type": "boolean" }
+      }
+    },
+    "current": {
+      "type": "object",
+      "required": [
+        "account_profile",
+        "pain_bank",
+        "strategy_brief",
+        "topic_candidates_conservative",
+        "topic_candidates_experimental",
+        "topic_selection"
+      ],
+      "additionalProperties": { "type": "string" }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "workflow_manifests": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

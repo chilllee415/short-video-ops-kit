@@ -1,0 +1,49 @@
+{
+  "workflow_id": "reference-transcript-download",
+  "purpose": "Search and download viral reference videos and extract usable body text/transcripts. No strategy decomposition is performed in this workflow.",
+  "reads": [
+    "project.manifest.json",
+    "config/strategy/strategy-brief.json",
+    "data/topic-research/current/pain-bank.json",
+    "data/benchmarks/current/reference-bank.json",
+    "runs/<reference-plan-run-id>/outputs/reference-research-plan.json",
+    "data/benchmarks/raw/references/"
+  ],
+  "optional_reads": [
+    "data/benchmarks/current/competitor-map.json",
+    "TikHub API key via env or --env-file",
+    "ASR provider key or local whisper command"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "reference-research-plan",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "runs/<reference-plan-run-id>/outputs/reference-research-plan.json"
+      ],
+      "notes": "Download queries, platform mix, and transcript policy come from the research plan."
+    },
+    {
+      "workflow_id": "strategy-confirmation",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "config/strategy/strategy-brief.json"
+      ],
+      "notes": "Candidate filtering must stay aligned with the confirmed account strategy."
+    }
+  ],
+  "handoff_policy": "Execute the research plan and write raw media/transcripts only; do not analyze strategy or generate topics.",
+  "writes": [
+    "data/benchmarks/raw/references/transcript-downloads/<run-id>/",
+    "runs/<run-id>/outputs/reference-transcript-collection.json",
+    "runs/<run-id>/outputs/reference-transcript-collection.md"
+  ],
+  "must_not_write": [
+    "config/strategy/strategy-brief.json",
+    "work/topics/",
+    "data/benchmarks/current/reference-bank.json"
+  ],
+  "requires_user_confirmation": false,
+  "output_schema": "schemas/reference-transcript-collection.schema.json",
+  "missing_data_behavior": "exclude_metadata_only_candidates_and_record_reason"
+}

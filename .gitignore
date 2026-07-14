@@ -1,0 +1,17 @@
+customers/
+user-data/
+private/
+.secrets/
+.env
+.env.*
+!.env.example
+*.local.json
+*.secret.json
+*.log
+*.sqlite
+*.sqlite3
+.DS_Store
+__pycache__/
+*.pyc
+templates/project-workspace/99_runs/*
+!templates/project-workspace/99_runs/.gitkeep

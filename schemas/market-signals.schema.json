@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Strategy-bounded Market Signals",
+  "type": "object",
+  "required": ["run_date", "generated_at", "status", "research_brief_ref", "checked_sources", "signals", "blockers"],
+  "properties": {
+    "run_date": {"type": "string", "format": "date"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["complete", "partial", "blocked"]},
+    "research_brief_ref": {"type": "string", "minLength": 1},
+    "checked_sources": {"type": "array", "items": {"type": "object"}},
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["signal_id", "evidence_role", "observed_at", "source_url", "topic_opportunity"],
+        "properties": {
+          "signal_id": {"type": "string", "minLength": 1},
+          "evidence_role": {"type": "string", "enum": ["search_interest", "hot_topic", "industry_signal", "market_task", "content_gap", "supply_content"]},
+          "observed_at": {"type": "string"},
+          "source_url": {"type": "string", "minLength": 1},
+          "query_family": {"type": "string"},
+          "topic_opportunity": {"type": "string", "minLength": 1},
+          "metric": {"type": "object"}
+        }
+      }
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}}
+  }
+}

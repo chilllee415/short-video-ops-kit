@@ -1,0 +1,11 @@
+{
+  "candidate_set_id": "experimental-not-generated",
+  "lane": "experimental",
+  "status": "blocked",
+  "strategy_id": "not-confirmed",
+  "strategy_assessment_id": "not-assessed",
+  "generated_at": "1970-01-01T00:00:00Z",
+  "quota_percent": 40,
+  "blockers": ["Confirm account positioning and strategy before generating candidates."],
+  "topics": []
+}

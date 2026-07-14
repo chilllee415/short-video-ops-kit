@@ -1,0 +1,12 @@
+{
+  "workflow_id": "topic-candidates-conservative",
+  "purpose": "Build and rank the stable 60% topic lane from confirmed account strategy, proven account themes, current industry/tool changes and execution constraints.",
+  "reads": ["project.manifest.json", "config/profile/account.profile.json", "config/strategy/strategy-brief.json", "config/policies/topic-discovery.policy.json", "config/policies/topic-selection.policy.json", "data/operations/current/account-snapshot.json", "data/operations/current/content-performance.json", "data/topic-research/current/strategy-assessment.json", "data/topic-research/current/topic-signals.json", "data/feedback/current/learning.json"],
+  "accepted_evidence_roles": ["user_need", "market_task", "audience_pain", "search_interest", "industry_signal", "hot_topic", "content_gap", "strategy_evidence", "execution_constraint"],
+  "writes": ["work/topics/conservative/current.json", "work/topics/conservative/history/<run-id>.json", "runs/<run-id>/outputs/conservative-topic-candidates.json"],
+  "single_writer_for": "work/topics/conservative/current.json",
+  "hard_gate": "positioning and strategy confirmed; every topic account_fit.fit_status=core and all three account-fit booleans true",
+  "must_not_write": ["work/topics/experimental/", "work/topics/selections/", "data/benchmarks/", "work/plans/", "presentation/", "config/strategy/"],
+  "output_schema": "schemas/topic-lane.schema.json",
+  "missing_data_behavior": "write_blocked_empty_lane"
+}

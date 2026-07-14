@@ -1,0 +1,17 @@
+{
+  "offer_name": "workflow diagnosis and implementation",
+  "offer_type": "service",
+  "conversion_paths": [
+    "comment keyword",
+    "private message",
+    "diagnosis call",
+    "template delivery",
+    "workflow implementation"
+  ],
+  "service_boundaries": [
+    "diagnosis",
+    "template",
+    "workflow build",
+    "short-term implementation support"
+  ]
+}

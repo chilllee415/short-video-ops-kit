@@ -1,0 +1,23 @@
+{
+  "strategy_id": "",
+  "status": "draft",
+  "confirmed_by_user": false,
+  "stage_goal": "",
+  "target_audience_ids": [],
+  "priority_pain_ids": [],
+  "primary_strategy": "",
+  "content_ratio": {},
+  "scoring_weights": {},
+  "conversion_path": "",
+  "source_policy": {
+    "user_data_first": true,
+    "reference_content_role": "structure_only",
+    "allow_generic_tutorials": false
+  },
+  "avoid": [
+    "generic tutorials without user pain",
+    "unverified income claims",
+    "topics without pain_id"
+  ],
+  "decision_log_refs": []
+}

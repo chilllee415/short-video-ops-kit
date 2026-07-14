@@ -1,0 +1,24 @@
+{
+  "policy_id": "commercial-default",
+  "mode": "commercial",
+  "label": "Commercial client-delivery workspace",
+  "data_rules": {
+    "can_contain_private_operator_data": false,
+    "can_contain_customer_data": true,
+    "commit_allowed": false,
+    "public_export_allowed": false,
+    "white_label_required": true
+  },
+  "workflow_rules": {
+    "strategy_confirmation_required_for_formal_topics": true,
+    "pain_id_required_for_formal_topics": false,
+    "allow_exploratory_topics_without_confirmation": false,
+    "allow_internal_notes": false,
+    "allow_fast_iteration_outputs": false
+  },
+  "export_rules": {
+    "default_export_type": "white_label",
+    "must_remove_operator_identity": true,
+    "must_remove_customer_identity": false
+  }
+}

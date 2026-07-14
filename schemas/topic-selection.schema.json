@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Daily Mixed Topic Selection",
+  "type": "object",
+  "required": ["selection_id", "selection_date", "status", "mix_policy", "source_candidate_sets", "selected"],
+  "properties": {
+    "selection_id": {"type": "string", "minLength": 1},
+    "selection_date": {"type": "string", "format": "date"},
+    "status": {"type": "string", "enum": ["ready", "blocked", "invalidated"]},
+    "mix_policy": {
+      "type": "object",
+      "required": ["candidate_ratio", "daily_ratio"],
+      "properties": {
+        "candidate_ratio": {"const": {"conservative": 60, "experimental": 40}},
+        "daily_ratio": {"const": {"conservative": 2, "experimental": 1}}
+      }
+    },
+    "source_candidate_sets": {
+      "type": "object",
+      "required": ["conservative", "experimental"],
+      "properties": {
+        "conservative": {"type": "string"},
+        "experimental": {"type": "string"}
+      }
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "selected": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["topic_id", "lane", "selection_rank"],
+        "properties": {
+          "topic_id": {"type": "string"},
+          "lane": {"type": "string", "enum": ["conservative", "experimental"]},
+          "selection_rank": {"type": "integer", "minimum": 1, "maximum": 3}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "blocked"}}},
+      "then": {"properties": {"selected": {"maxItems": 0}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "ready"}}},
+      "then": {
+        "properties": {
+          "selected": {
+            "minItems": 3,
+            "maxItems": 3,
+            "allOf": [
+              {
+                "contains": {"type": "object", "properties": {"lane": {"const": "conservative"}}, "required": ["lane"]},
+                "minContains": 2,
+                "maxContains": 2
+              },
+              {
+                "contains": {"type": "object", "properties": {"lane": {"const": "experimental"}}, "required": ["lane"]},
+                "minContains": 1,
+                "maxContains": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

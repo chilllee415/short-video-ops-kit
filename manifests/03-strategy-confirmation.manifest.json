@@ -1,0 +1,49 @@
+{
+  "workflow_id": "strategy-confirmation",
+  "purpose": "Create or update the confirmed strategy brief from account state, pain bank, and user decision.",
+  "reads": [
+    "project.manifest.json",
+    "config/profile/account.profile.json",
+    "config/profile/offer.profile.json",
+    "config/profile/audience.profile.json",
+    "data/operations/current/account-snapshot.json",
+    "data/topic-research/current/pain-bank.json",
+    "data/feedback/current/learning.json"
+  ],
+  "optional_reads": [
+    "data/feedback/current/strategy-delta.json",
+    "config/strategy/decision-log.md"
+  ],
+  "upstream_dependencies": [
+    {
+      "workflow_id": "auto-ops-diagnosis",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "data/operations/current/account-snapshot.json"
+      ],
+      "notes": "Strategy must be grounded in current account state."
+    },
+    {
+      "workflow_id": "pain-bank-builder",
+      "dependency_type": "hard",
+      "required_artifacts": [
+        "data/topic-research/current/pain-bank.json"
+      ],
+      "notes": "Strategy must map to audience pain and not only operator preference."
+    }
+  ],
+  "handoff_policy": "Read confirmed upstream artifacts and ask the user to confirm strategy; do not rewrite pain or account data.",
+  "writes": [
+    "config/strategy/strategy-brief.json",
+    "config/strategy/scoring-weights.json",
+    "config/strategy/decision-log.md",
+    "runs/<run-id>/outputs/strategy-brief.json"
+  ],
+  "must_not_write": [
+    "data/topic-research/current/pain-bank.json",
+    "work/topics/"
+  ],
+  "requires_user_confirmation": true,
+  "output_schema": "schemas/strategy-brief.schema.json",
+  "missing_data_behavior": "emit_strategy_questions"
+}

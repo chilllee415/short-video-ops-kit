@@ -1,0 +1,9 @@
+{
+  "run_date": "1970-01-01",
+  "generated_at": "1970-01-01T00:00:00Z",
+  "status": "blocked",
+  "research_brief_ref": "config/strategy/strategy-brief.json",
+  "checked_sources": [],
+  "signals": [],
+  "blockers": ["Confirm account positioning before market-signal collection."]
+}
