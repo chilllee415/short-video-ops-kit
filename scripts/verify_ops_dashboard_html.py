@@ -128,7 +128,10 @@ def main() -> None:
     )
     stable_strategy = str(strategy.get("primary_strategy") or "")
     if dashboard_account.get("headline") != expected_headline:
-        errors.append("dashboard direction headline is not the single objective positioning summary")
+        errors.append("dashboard positioning headline is not the objective positioning summary")
+    direction_headline = str(dashboard_account.get("directionHeadline") or "")
+    if not direction_headline or len(direction_headline) > 22:
+        errors.append("dashboard directionHeadline must be a non-empty short direction of at most 22 characters")
     if dashboard_account.get("positioning") != stable_positioning:
         errors.append("dashboard positioning does not match account.profile.json")
     if dashboard_account.get("stableStrategy") != stable_strategy:

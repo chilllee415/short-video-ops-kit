@@ -131,6 +131,8 @@ def dashboard_contract_result(path: Path) -> Result:
         "function renderDemandBoard()",
         "M.demand.sourceMix",
         "var sourceCells = sourceMix.slice(0,5).map",
+        "function platformMark(platform)",
+        "account.directionHeadline",
         "function openDemandDrawer(topic)",
         "function persistDrawerCandidate()",
         "function renderExecutionPlan()",
@@ -152,7 +154,17 @@ def dashboard_contract_result(path: Path) -> Result:
         "if(e.key === 'Escape') closeDrawer()",
     )
     missing = [marker for marker in markers if marker not in text]
-    return Result("P2 dashboard contract", not missing, "; missing: ".join(missing) if missing else "render, keyboard, drawer, persistence contracts present")
+    forbidden = [marker for marker in ("assets/platform-icons/",) if marker in text]
+    detail_parts = []
+    if missing:
+        detail_parts.append("missing: " + ", ".join(missing))
+    if forbidden:
+        detail_parts.append("offline-unsafe references: " + ", ".join(forbidden))
+    return Result(
+        "P2 dashboard contract",
+        not missing and not forbidden,
+        "; ".join(detail_parts) if detail_parts else "render, offline icons, short direction, keyboard, drawer, persistence contracts present",
+    )
 
 
 def write_json(path: Path, payload: dict) -> None:

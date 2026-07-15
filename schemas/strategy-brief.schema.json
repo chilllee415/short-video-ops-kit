@@ -11,6 +11,8 @@
     "target_audience_ids": { "type": "array", "items": { "type": "string" } },
     "priority_pain_ids": { "type": "array", "items": { "type": "string" } },
     "primary_strategy": { "type": "string" },
+    "dashboard_direction": { "type": "string", "maxLength": 22 },
+    "content_pillars": { "type": "array", "items": { "type": "string" } },
     "content_ratio": { "type": "object", "additionalProperties": { "type": "string" } },
     "scoring_weights": { "type": "object", "additionalProperties": { "type": "number" } },
     "conversion_path": { "type": "string" },

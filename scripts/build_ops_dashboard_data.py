@@ -682,6 +682,18 @@ def build_account(base: dict[str, Any], workspace: Path) -> dict[str, Any]:
     account["headline"] = positioning_label
     account["positioning"] = positioning
     account["stableStrategy"] = strategy.get("primary_strategy") or ""
+    direction_candidates = [
+        strategy.get("dashboard_direction"),
+        *((strategy.get("content_pillars") or [])[:1]),
+        strategy.get("primary_strategy"),
+        positioning_label,
+    ]
+    direction = next(
+        (str(item).strip() for item in direction_candidates if str(item or "").strip()),
+        "账号方向待确认",
+    )
+    direction = re.split(r"[\n。；;]", direction, maxsplit=1)[0].strip()
+    account["directionHeadline"] = direction if len(direction) <= 22 else direction[:21].rstrip() + "…"
     account["conversionPath"] = strategy.get("conversion_path") or ""
     decision_labels = {
         "continue_current": "保持当前策略",

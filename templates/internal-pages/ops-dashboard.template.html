@@ -278,9 +278,10 @@ h1 em.workflow-statement{font-size:46px}
 .mini-card[data-mini-card="direction"] .mini-val,
 .mini-card[data-mini-card="risk"] .mini-val{font-size:clamp(22px,1.42vw,28px);padding-right:112px}
 .mini-card[data-mini-card="direction"] .mini-val{
-  max-width:calc(100% - 170px);padding-right:0;
-  font-family:var(--body);font-size:clamp(24px,1.65vw,31px);font-weight:900;line-height:1.18;letter-spacing:0;
-  white-space:normal;overflow-wrap:anywhere;text-wrap:balance;
+  max-width:calc(100% - 138px);padding-right:0;
+  font-family:var(--body);font-size:clamp(22px,1.5vw,29px);font-weight:900;line-height:1.22;letter-spacing:0;
+  white-space:normal;overflow-wrap:break-word;text-wrap:balance;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
 }
 .mini-card[data-mini-card="risk"] .mini-val{position:relative;z-index:2;padding-right:116px}
 .mini-val strong{font-size:13px;color:var(--muted);font-weight:800;margin-left:4px}
@@ -1941,14 +1942,24 @@ section{--section-accent:var(--cyan);--section-soft:rgba(105,224,208,.10);margin
 .chip-platform-icon{
   width:14px;height:14px;display:inline-grid;place-items:center;margin-right:5px;vertical-align:-2px;
 }
-.chip-platform-icon img{width:14px;height:14px;display:block;filter:drop-shadow(0 0 6px rgba(105,224,208,.18))}
 .chip-platform-icon svg{width:14px;height:14px;color:var(--amber)}
+.platform-mark{
+  --mark-color:var(--cyan);width:1em;height:1em;border-radius:28%;display:inline-grid;place-items:center;
+  color:var(--mark-color);border:1px solid color-mix(in srgb,var(--mark-color) 58%,transparent);
+  background:color-mix(in srgb,var(--mark-color) 12%,transparent);font-family:var(--body);font-weight:900;
+  font-size:12px;line-height:1;box-shadow:0 0 9px color-mix(in srgb,var(--mark-color) 15%,transparent);
+}
+.platform-mark.pm-dy{--mark-color:#69e0d0}.platform-mark.pm-xhs{--mark-color:#ff7f6e}
+.platform-mark.pm-zhihu{--mark-color:#7fb0ff}.platform-mark.pm-bili{--mark-color:#ff7aa8}
+.platform-mark.pm-youtube{--mark-color:#ff6b6b}.platform-mark.pm-weibo{--mark-color:#ffb86b}
+.platform-mark.pm-archive{--mark-color:#63d9a0}
+.chip-platform-icon .platform-mark{font-size:9px;width:14px;height:14px;border-radius:4px}
 .brand-icon{
   width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
   border:1px solid rgba(194,204,224,.18);background:rgba(18,26,42,.68);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
 }
-.brand-icon img{width:22px;height:22px;display:block;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.08))}
+.brand-icon .platform-mark{width:22px;height:22px;font-size:13px;border-radius:6px}
 .brand-icon svg{width:18px;height:18px}
 .brand-icon.douyin{border-color:rgba(105,224,208,.32);background:rgba(105,224,208,.08)}
 .brand-icon.xhs{border-color:rgba(255,127,110,.34);background:rgba(255,127,110,.08)}
@@ -3732,8 +3743,8 @@ body.onboarding-required>.wrap{visibility:hidden}
           <div class="filter-group">
             <span class="lab">来源</span>
             <button class="f-chip on" data-filter="platform" data-val="all">全部</button>
-            <button class="f-chip" data-filter="platform" data-val="douyin_internal"><span class="chip-platform-icon"><img src="assets/platform-icons/douyin.png" alt=""></span>内部抖音</button>
-            <button class="f-chip" data-filter="platform" data-val="youtube"><span class="chip-platform-icon"><img src="assets/platform-icons/youtube.png" alt=""></span>YouTube</button>
+            <button class="f-chip" data-filter="platform" data-val="douyin_internal"><span class="chip-platform-icon"><span class="platform-mark pm-dy" aria-hidden="true">抖</span></span>内部抖音</button>
+            <button class="f-chip" data-filter="platform" data-val="youtube"><span class="chip-platform-icon"><span class="platform-mark pm-youtube" aria-hidden="true">▶</span></span>YouTube</button>
             <button class="f-chip" data-filter="platform" data-val="script_archive"><span class="chip-platform-icon"><i data-lucide="file-text"></i></span>脚本库</button>
           </div>
           <div class="filter-group">
@@ -3750,7 +3761,7 @@ body.onboarding-required>.wrap{visibility:hidden}
 
       <aside class="benchmark-inspector" aria-label="当前拆解样本">
         <div class="benchmark-inspector-head"><span><i data-lucide="flask-conical"></i>当前拆解样本</span><b>匹配度 100</b></div>
-        <div class="benchmark-sample-title"><i class="brand-icon douyin"><img src="assets/platform-icons/douyin.png" alt="抖音"></i><div><strong>用工作流把重复任务变成可见结果</strong><span>@workspace-owner · 示例样本</span></div></div>
+        <div class="benchmark-sample-title"><i class="brand-icon douyin"><span class="platform-mark pm-dy" aria-hidden="true">抖</span></i><div><strong>用工作流把重复任务变成可见结果</strong><span>@workspace-owner · 示例样本</span></div></div>
         <div class="benchmark-hook"><span>Hook 拆解</span><p>我用 Codex 只花了 <b>10 分钟</b>，就让电脑 <b>自动帮我</b> 做完这些事。</p></div>
         <div class="benchmark-flow-title">0-30 秒结构拆解</div>
         <div class="benchmark-flow">
@@ -4358,13 +4369,24 @@ window.__DASHBOARD__ = __OPS_DASHBOARD_DATA__;
   }
 
   var PLATFORM_LABEL = { xhs:'小红书', dy:'抖音', zhihu:'知乎', weibo:'微博', bili:'B站' };
+  function platformMark(platform){
+    var key = String(platform || '').toLowerCase();
+    var marks = {
+      douyin_internal:['dy','抖'],douyin:['dy','抖'],dy:['dy','抖'],
+      xhs:['xhs','书'],xiaohongshu:['xhs','书'],zhihu:['zhihu','知'],
+      bili:['bili','B'],bilibili:['bili','B'],youtube:['youtube','▶'],
+      weibo:['weibo','微'],database:['archive','库'],script_archive:['archive','库'],sync:['archive','库']
+    };
+    var item = marks[key] || ['archive','源'];
+    return '<span class="platform-mark pm-'+item[0]+'" aria-hidden="true">'+item[1]+'</span>';
+  }
   var PLATFORM_ICON = {
-    douyin_internal: '<span class="brand-icon douyin"><img src="assets/platform-icons/douyin.png" alt=""></span>',
-    dy: '<span class="brand-icon douyin"><img src="assets/platform-icons/douyin.png" alt=""></span>',
-    xhs: '<span class="brand-icon xhs"><img src="assets/platform-icons/xiaohongshu.png" alt=""></span>',
-    youtube: '<span class="brand-icon youtube"><img src="assets/platform-icons/youtube.png" alt=""></span>',
-    bili: '<span class="brand-icon bili"><img src="assets/platform-icons/bilibili.png" alt=""></span>',
-    script_archive: '<span class="brand-icon archive"><i data-lucide="file-text"></i></span>'
+    douyin_internal: '<span class="brand-icon douyin">'+platformMark('dy')+'</span>',
+    dy: '<span class="brand-icon douyin">'+platformMark('dy')+'</span>',
+    xhs: '<span class="brand-icon xhs">'+platformMark('xhs')+'</span>',
+    youtube: '<span class="brand-icon youtube">'+platformMark('youtube')+'</span>',
+    bili: '<span class="brand-icon bili">'+platformMark('bili')+'</span>',
+    script_archive: '<span class="brand-icon archive">'+platformMark('database')+'</span>'
   };
 
   function h(tag, cls, html){
@@ -4398,11 +4420,7 @@ window.__DASHBOARD__ = __OPS_DASHBOARD_DATA__;
     return PLATFORM_ICON[platform] || '<span class="brand-icon archive"><i data-lucide="clapperboard"></i></span>';
   }
   function platformChipIcon(platform){
-    if(platform === 'douyin_internal' || platform === 'dy') return '<span class="chip-platform-icon"><img src="assets/platform-icons/douyin.png" alt=""></span>';
-    if(platform === 'xhs') return '<span class="chip-platform-icon"><img src="assets/platform-icons/xiaohongshu.png" alt=""></span>';
-    if(platform === 'youtube') return '<span class="chip-platform-icon"><img src="assets/platform-icons/youtube.png" alt=""></span>';
-    if(platform === 'bili') return '<span class="chip-platform-icon"><img src="assets/platform-icons/bilibili.png" alt=""></span>';
-    return '<span class="chip-platform-icon"><i data-lucide="file-text"></i></span>';
+    return '<span class="chip-platform-icon">'+platformMark(platform)+'</span>';
   }
   function compactTitle(text){
     return String(text || '').replace(/[，。,.].*$/,'').slice(0,18);
@@ -4451,12 +4469,8 @@ window.__DASHBOARD__ = __OPS_DASHBOARD_DATA__;
       {key:'bili',label:'B站',value:4,icon:'bili',color:'#ff7aa8'},
       {key:'sync',label:'脚本库',value:6,icon:'database',color:'#63d9a0'}
     ];
-    var sourceIconFiles = {douyin:'douyin.png',xhs:'xiaohongshu.png',zhihu:'zhihu.png',bili:'bilibili.png',youtube:'youtube.png'};
     var sourceCells = sourceMix.slice(0,5).map(function(item){
-      var iconFile = sourceIconFiles[item.icon];
-      var icon = iconFile
-        ? '<img src="assets/platform-icons/'+esc(iconFile)+'" alt="">'
-        : '<i data-lucide="'+(item.icon === 'database' ? 'book-open' : 'radio')+'" aria-hidden="true"></i>';
+      var icon = platformMark(item.icon || item.key);
       return '<span class="ds-'+esc(item.key || 'sync')+'" style="--source-color:'+esc(item.color || '#63d9a0')+';--source-pct:'+esc(item.value || 0)+'%" aria-label="'+esc(item.label || '来源')+' '+esc(item.value || 0)+'%">'+
         '<span class="demand-source-ico">'+icon+'</span><em>'+esc(item.label || '来源')+'</em><b>'+esc(item.value || 0)+'%</b></span>';
     }).join('');
@@ -4978,7 +4992,7 @@ function renderTopics(){
 
     miniCard('direction').innerHTML =
       '<div class="mini-head"><div class="mini-label mini-label-icons"><i data-lucide="circle-dot"></i><span>今日方向</span></div></div>'+
-      '<div class="mini-val">'+esc(account.headline || '账号定位待确认')+'</div>'+
+      '<div class="mini-val" title="'+esc(account.directionHeadline || account.headline || '账号方向待确认')+'">'+esc(account.directionHeadline || account.headline || '账号方向待确认')+'</div>'+
       targetVisual();
 
     var trendRows = account.playTrend || [];
