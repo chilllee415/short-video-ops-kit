@@ -15,3 +15,5 @@ __pycache__/
 *.pyc
 templates/project-workspace/99_runs/*
 !templates/project-workspace/99_runs/.gitkeep
+.trae-html-share-packages/
+.trae-workspaces/
