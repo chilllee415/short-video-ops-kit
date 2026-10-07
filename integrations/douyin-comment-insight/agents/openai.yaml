@@ -1,0 +1,7 @@
+interface:
+  display_name: "抖音评论分析"
+  short_description: "采集抖音评论，增量更新账号报告库并生成洞察报告"
+  default_prompt: "使用 $douyin-comment-insight 分析指定抖音账号，并更新评论洞察报告库。"
+policy:
+  allow_implicit_invocation: true
+

@@ -76,7 +76,7 @@ python3 -m pip install -r requirements-dev.txt
 工作区存放你的账号资料与生成结果，不会被提交到 GitHub。
 
 ```bash
-python3 scripts/create_workspace.py ~/short-video-ops-data/my-account
+python3 scripts/create_workspace.py ~/short-video-ops-data/my-account --project-id my-account --display-name "My Account" --category generic
 ```
 
 创建完成后，首次配置页面会自动生成在 `presentation/internal-pages/运营大盘.html`。直接打开页面填写问卷即可，不需要先手工编辑 JSON。
@@ -84,7 +84,7 @@ python3 scripts/create_workspace.py ~/short-video-ops-data/my-account
 如果你为客户交付，使用更严格的商用模式：
 
 ```bash
-python3 scripts/create_workspace.py ~/short-video-ops-data/client-a --mode commercial
+python3 scripts/create_workspace.py ~/short-video-ops-data/client-a --mode commercial --project-id client-a --display-name "Client A" --category generic
 ```
 
 ### 4. 先确认账号定位和运营策略

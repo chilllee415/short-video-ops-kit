@@ -1,0 +1,7 @@
+{
+  "lane": "工具教程", "summary": "虚构评论主要关注工具领取、安装教程和 Windows 兼容性。",
+  "metrics": {"comments": 5, "highValueSignals": 4, "needClusters": 2, "highPotential": 1},
+  "viewpoints": [{"id": "demo-vp-install", "title": "用户需要清晰的安装入口", "summary": "多条虚构评论直接询问下载、安装和链接。", "evidenceCommentIds": ["demo-c1", "demo-c2", "demo-c3"], "confidence": "高"}],
+  "opportunities": [{"id": "demo-opp-guide", "type": "内容机会", "title": "跨平台安装指南", "evidenceCommentIds": ["demo-c1", "demo-c2", "demo-c4"], "inference": "安装与兼容性是重复出现的虚构需求。", "validationAction": "发布带下载入口的 Windows/macOS 安装页，统计完成安装人数。", "metric": "安装完成率", "confidence": "高"}],
+  "run": {"status": "completed", "completedAt": "2026-01-01T00:00:00+00:00"}
+}
