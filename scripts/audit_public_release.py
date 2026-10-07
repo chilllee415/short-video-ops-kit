@@ -185,13 +185,15 @@ def prepare_release_fixture(workspace: Path) -> None:
 
     account_profile_path = workspace / "config/profile/account.profile.json"
     account_profile = json.loads(account_profile_path.read_text(encoding="utf-8"))
+    fixture_positioning = account_profile.get("positioning") or "Help a defined audience solve a documented recurring problem through repeatable content workflows."
     account_profile.update(
         {
+            "positioning": fixture_positioning,
             "positioning_status": "confirmed",
             "positioning_provenance": {
                 "positioning_source_type": "release_fixture",
-                "positioning_source_ref": "templates/project-workspace/config/profile/account.profile.json",
-                "confirmation_quote": account_profile["positioning"],
+                "positioning_source_ref": "audit_public_release.py",
+                "confirmation_quote": fixture_positioning,
                 "confirmed_at": "2026-01-07",
             },
         }

@@ -1,5 +1,7 @@
 {
-  "project_id": "client-demo",
+  "project_id": "generic-project",
+  "display_name": "Generic Project",
+  "category": "generic",
   "schema_version": "2.2.0",
   "workspace_type": "short-video-ops",
   "operating_mode": "commercial",

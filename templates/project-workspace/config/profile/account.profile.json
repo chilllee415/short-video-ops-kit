@@ -1,11 +1,8 @@
 {
-  "account_id": "client-account",
-  "platform": "short-video",
-  "industry": "knowledge-service",
-  "positioning": "Help a specific audience solve repeated business problems with visible AI-enabled workflows.",
-  "content_boundaries": [
-    "No fabricated performance data",
-    "No unverified income claims",
-    "No generic tool tutorials without user pain"
-  ]
+  "account_id": "",
+  "platform": "",
+  "industry": "",
+  "positioning": "",
+  "positioning_status": "unconfirmed",
+  "content_boundaries": []
 }
